@@ -1,10 +1,12 @@
-package com.wahid.wurly.presentation.common.components
+package com.wahid.wurly.presentation.screen.settings.component
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,26 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.wahid.wurly.R
 
 /**
- * A settings row with an icon, label + subtitle stacked, and trailing content
- * injected via a slot (e.g., segmented buttons or chips).
+ * A settings row with an icon, label text, and a trailing chevron arrow.
  *
- * Stateless — all data is injected.
+ * Clicking the row triggers [onClick].
+ * Stateless — the click action is hoisted.
  */
 @Composable
-fun SettingsLanguageRow(
+fun SettingsNavigateRow(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     iconContentDescription: String,
     label: String,
-    subtitle: String,
-    trailing: @Composable () -> Unit,
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -45,21 +47,20 @@ fun SettingsLanguageRow(
 
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.settings_row_icon_spacing)))
 
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Medium,
-                ),
-                color = Color.White,
-            )
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.White.copy(alpha = 0.6f),
-            )
-        }
+        Text(
+            text = label,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.Medium,
+            ),
+            color = Color.White,
+        )
 
-        trailing()
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = stringResource(R.string.settings_chevron_cd),
+            modifier = Modifier.size(dimensionResource(R.dimen.settings_row_icon_size)),
+            tint = Color.White.copy(alpha = 0.6f),
+        )
     }
 }

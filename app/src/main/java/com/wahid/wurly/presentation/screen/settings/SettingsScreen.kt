@@ -33,13 +33,13 @@ import com.mrtdk.glass.GlassBoxScope
 import com.mrtdk.glass.GlassContainer
 import com.wahid.wurly.R
 import com.wahid.wurly.presentation.common.rememberCachedBackgroundPainter
-import com.wahid.wurly.presentation.common.components.SegmentedOption
-import com.wahid.wurly.presentation.common.components.SettingsLanguageRow
-import com.wahid.wurly.presentation.common.components.SettingsNavigateRow
-import com.wahid.wurly.presentation.common.components.SettingsSectionTitle
-import com.wahid.wurly.presentation.common.components.SettingsSegmentedButtons
-import com.wahid.wurly.presentation.common.components.SettingsToggleRow
-import com.wahid.wurly.presentation.common.components.SettingsTopBar
+import com.wahid.wurly.presentation.screen.settings.component.SegmentedOption
+import com.wahid.wurly.presentation.screen.settings.component.SettingsLanguageRow
+import com.wahid.wurly.presentation.screen.settings.component.SettingsNavigateRow
+import com.wahid.wurly.presentation.screen.settings.component.SettingsSectionTitle
+import com.wahid.wurly.presentation.screen.settings.component.SettingsSegmentedButtons
+import com.wahid.wurly.presentation.screen.settings.component.SettingsToggleRow
+import com.wahid.wurly.presentation.screen.settings.component.SettingsTopBar
 import com.wahid.wurly.ui.theme.WurlyTheme
 
 // ─────────────────────────────────────────────────────────────

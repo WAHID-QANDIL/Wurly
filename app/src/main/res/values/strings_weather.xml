@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Weather Screen -->
+    <string name="weather_back_button_cd">Navigate back</string>
+    <string name="weather_forecast_screen">Navigate to forecast</string>
+    <string name="weather_background_cd">Weather background image</string>
+    <string name="weather_degree_symbol">°</string>
+    <string name="weather_temperature_cd">Current temperature %1$s degrees</string>
+
+    <!-- Weather Detail Labels -->
+    <string name="weather_label_precipitation">PRECIPITATION</string>
+    <string name="weather_label_uv_index">UV INDEX</string>
+    <string name="weather_label_wind">WIND</string>
+    <string name="weather_label_humidity">HUMIDITY</string>
+    <string name="weather_label_visibility">VISIBILITY</string>
+    <string name="weather_label_pressure">PRESSURE</string>
+
+    <!-- Weather Detail Units -->
+    <string name="weather_unit_mm">%1$s mm</string>
+    <string name="weather_unit_kmh">%1$s km/h</string>
+    <string name="weather_unit_mph">%1$s mph</string>
+    <string name="weather_unit_ms">%1$s m/s</string>
+    <string name="weather_unit_percent">%1$s%%</string>
+    <string name="weather_unit_km">%1$s km</string>
+    <string name="weather_unit_mi">%1$s mi</string>
+    <string name="weather_unit_hpa">%1$s hPa</string>
+
+    <!-- Weather Detail Subtitles -->
+    <string name="weather_subtitle_feels_like">Feels like %1$s°</string>
+    <string name="weather_subtitle_gusts">Gusts %1$s</string>
+    <string name="weather_subtitle_visibility_clear">Clear visibility</string>
+    <string name="weather_subtitle_pressure_sea_level">Sea level %1$s</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">HOME</string>
+    <string name="nav_favorites">FAVORITES</string>
+    <string name="nav_map">MAP</string>
+    <string name="nav_alerts">ALERTS</string>
+    <string name="nav_settings">SETTINGS</string>
+
+    <!-- Content descriptions for nav icons -->
+    <string name="nav_home_cd">Home tab</string>
+    <string name="nav_favorites_cd">Favorites tab</string>
+    <string name="nav_map_cd">Map tab</string>
+    <string name="nav_alerts_cd">Alerts tab</string>
+    <string name="nav_settings_cd">Settings tab</string>
+
+    <!-- Weather detail icon content descriptions -->
+    <string name="weather_icon_precipitation_cd">Precipitation icon</string>
+    <string name="weather_icon_uv_cd">UV index icon</string>
+    <string name="weather_icon_wind_cd">Wind icon</string>
+    <string name="weather_icon_humidity_cd">Humidity icon</string>
+    <string name="weather_icon_visibility_cd">Visibility icon</string>
+    <string name="weather_icon_pressure_cd">Pressure icon</string>
+
+    <!-- 5-Day Forecast Screen -->
+    <string name="forecast_title">7-Day Forecast</string>
+    <string name="forecast_temp_format">%1$s° / %2$s°</string>
+    <string name="forecast_overflow_cd">More options</string>
+    <string name="forecast_day_icon_cd">Weather condition for %1$s</string>
+    <string name="forecast_card_icon_cd">Forecast condition at %1$s</string>
+    <string name="forecast_card_subtitle_humidity">Humidity %1$s</string>
+    <string name="navigate_to_forecast">Navigate_to_forecast</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+
+    <!-- Settings – Location -->
+    <string name="settings_section_location">LOCATION</string>
+    <string name="settings_use_gps">Use GPS</string>
+    <string name="settings_use_gps_cd">Toggle GPS location</string>
+    <string name="settings_select_from_map">Select from Map</string>
+    <string name="settings_select_from_map_cd">Open map to select location</string>
+    <string name="settings_gps_icon_cd">GPS icon</string>
+    <string name="settings_map_icon_cd">Map icon</string>
+    <string name="settings_chevron_cd">Navigate forward</string>
+
+    <!-- Settings – Units -->
+    <string name="settings_section_units">UNITS</string>
+    <string name="settings_temperature">Temperature</string>
+    <string name="settings_unit_celsius">Celsius</string>
+    <string name="settings_unit_fahrenheit">Fahrenheit</string>
+    <string name="settings_unit_kelvin">Kelvin</string>
+    <string name="settings_wind_speed">Wind Speed</string>
+    <string name="settings_unit_ms">m/s</string>
+    <string name="settings_unit_mph">mph</string>
+
+    <!-- Settings – Language -->
+    <string name="settings_section_language">LANGUAGE</string>
+    <string name="settings_app_language">App Language</string>
+    <string name="settings_currently_language">Currently %1$s</string>
+    <string name="settings_language_icon_cd">Language icon</string>
+    <string name="settings_lang_en">EN</string>
+    <string name="settings_lang_ar">AR</string>
+
+    <!-- Favorites Screen -->
+    <string name="favorites_title">Favorites</string>
+    <string name="favorites_search_cd">Search favorites</string>
+    <string name="favorites_remove_cd">Remove %1$s from favorites</string>
+    <string name="favorites_add_cd">Add favorite location</string>
+    <string name="favorites_weather_icon_cd">Weather icon for %1$s</string>
+    <string name="favorites_temp_condition_format">%1$s · %2$s</string>
+    <string name="favorites_preview_image_cd">Weather preview for %1$s</string>
+    <string name="favorites_empty">No favorite locations yet.\nTap + to add one.</string>
+
+    <!-- Add Favorite Screen -->
+    <string name="add_favorite_title">Add Favorite</string>
+    <string name="add_favorite_search_hint">Search for a city…</string>
+    <string name="add_favorite_search_cd">Search city</string>
+    <string name="add_favorite_clear_cd">Clear search</string>
+    <string name="add_favorite_suggestion_icon_cd">Location suggestion</string>
+    <string name="add_favorite_pick_this_location">PICK THIS LOCATION</string>
+    <string name="add_favorite_save_location">Save Location</string>
+    <string name="add_favorite_save_icon_cd">Save location icon</string>
+    <string name="add_favorite_map_cd">Map showing selected location</string>
+
+    <!-- Map Screen -->
+    <string name="map_screen_title">Add Favorite</string>
+
+    <!-- Weather Alerts Screen -->
+    <string name="alerts_title">Weather Alerts</string>
+    <string name="alerts_add_button">Add Weather Alert</string>
+    <string name="alerts_add_button_cd">Add a new weather alert</string>
+    <string name="alerts_enabled">Alerts Enabled</string>
+    <string name="alerts_enabled_subtitle">Receive notifications for severe weather</string>
+    <string name="alerts_enabled_cd">Toggle weather alerts</string>
+    <string name="alerts_active_duration">Active Duration</string>
+    <string name="alerts_active_duration_icon_cd">Active duration icon</string>
+    <string name="alerts_duration_1h">1 hour</string>
+    <string name="alerts_duration_6h">6 hours</string>
+    <string name="alerts_duration_24h">24 hours</string>
+    <string name="alerts_notification_style">Notification Style</string>
+    <string name="alerts_notification_style_icon_cd">Notification style icon</string>
+    <string name="alerts_style_standard">Standard Notification</string>
+    <string name="alerts_style_standard_icon_cd">Standard notification icon</string>
+    <string name="alerts_style_alarm">Default Alarm Sound</string>
+    <string name="alerts_style_alarm_icon_cd">Alarm sound icon</string>
+    <string name="alerts_empty">No active weather alerts in your area.</string>
+    <string name="alerts_section_active">ACTIVE ALERTS</string>
+    <string name="alerts_remove_cd">Remove alert %1$s</string>
+    <string name="alerts_item_icon_cd">Alert icon</string>
+</resources>

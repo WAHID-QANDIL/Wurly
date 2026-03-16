@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Weather Screen -->
+    <string name="weather_back_button_cd">الرجوع</string>
+    <string name="weather_forecast_screen">الانتقال إلى التوقعات</string>
+    <string name="weather_background_cd">صورة خلفية الطقس</string>
+    <string name="weather_degree_symbol">°</string>
+    <string name="weather_temperature_cd">درجة الحرارة الحالية %1$s درجات</string>
+
+    <!-- Weather Detail Labels -->
+    <string name="weather_label_precipitation">الهطول</string>
+    <string name="weather_label_uv_index">مؤشر الأشعة فوق البنفسجية</string>
+    <string name="weather_label_wind">الرياح</string>
+    <string name="weather_label_humidity">الرطوبة</string>
+    <string name="weather_label_visibility">الرؤية</string>
+    <string name="weather_label_pressure">الضغط</string>
+
+    <!-- Weather Detail Units -->
+    <string name="weather_unit_mm">%1$s مم</string>
+    <string name="weather_unit_kmh">%1$s كم/س</string>
+    <string name="weather_unit_mph">%1$s ميل/س</string>
+    <string name="weather_unit_ms">%1$s م/ث</string>
+    <string name="weather_unit_percent">%1$s%%</string>
+    <string name="weather_unit_km">%1$s كم</string>
+    <string name="weather_unit_mi">%1$s ميل</string>
+    <string name="weather_unit_hpa">%1$s هكتوباسكال</string>
+
+    <!-- Weather Detail Subtitles -->
+    <string name="weather_subtitle_feels_like">محسوس %1$s°</string>
+    <string name="weather_subtitle_gusts">هبات %1$s</string>
+    <string name="weather_subtitle_visibility_clear">رؤية واضحة</string>
+    <string name="weather_subtitle_pressure_sea_level">مستوى البحر %1$s</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_favorites">المفضلة</string>
+    <string name="nav_map">الخريطة</string>
+    <string name="nav_alerts">التنبيهات</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Content descriptions for nav icons -->
+    <string name="nav_home_cd">علامة تبويب الرئيسية</string>
+    <string name="nav_favorites_cd">علامة تبويب المفضلة</string>
+    <string name="nav_map_cd">علامة تبويب الخريطة</string>
+    <string name="nav_alerts_cd">علامة تبويب التنبيهات</string>
+    <string name="nav_settings_cd">علامة تبويب الإعدادات</string>
+
+    <!-- Weather detail icon content descriptions -->
+    <string name="weather_icon_precipitation_cd">أيقونة الهطول</string>
+    <string name="weather_icon_uv_cd">أيقونة مؤشر الأشعة فوق البنفسجية</string>
+    <string name="weather_icon_wind_cd">أيقونة الرياح</string>
+    <string name="weather_icon_humidity_cd">أيقونة الرطوبة</string>
+    <string name="weather_icon_visibility_cd">أيقونة الرؤية</string>
+    <string name="weather_icon_pressure_cd">أيقونة الضغط</string>
+
+    <!-- 5-Day Forecast Screen -->
+    <string name="forecast_title">توقعات 7 أيام</string>
+    <string name="forecast_temp_format">%1$s° / %2$s°</string>
+    <string name="forecast_overflow_cd">المزيد من الخيارات</string>
+    <string name="forecast_day_icon_cd">حالة الطقس لـ %1$s</string>
+    <string name="forecast_card_icon_cd">حالة الطقس عند %1$s</string>
+    <string name="forecast_card_subtitle_humidity">الرطوبة %1$s</string>
+    <string name="navigate_to_forecast">المزيد من الخيارات</string>
+
+
+    <!-- Settings Screen -->
+    <string name="settings_title">الإعدادات</string>
+
+    <!-- Settings – Location -->
+    <string name="settings_section_location">الموقع</string>
+    <string name="settings_use_gps">استخدام GPS</string>
+    <string name="settings_use_gps_cd">تبديل استخدام موقع GPS</string>
+    <string name="settings_select_from_map">اختيار من الخريطة</string>
+    <string name="settings_select_from_map_cd">فتح الخريطة لاختيار الموقع</string>
+    <string name="settings_gps_icon_cd">أيقونة GPS</string>
+    <string name="settings_map_icon_cd">أيقونة الخريطة</string>
+    <string name="settings_chevron_cd">انتقال للأمام</string>
+
+    <!-- Settings – Units -->
+    <string name="settings_section_units">الوحدات</string>
+    <string name="settings_temperature">الحرارة</string>
+    <string name="settings_unit_celsius">سيلسيوس</string>
+    <string name="settings_unit_fahrenheit">فهرنهايت</string>
+    <string name="settings_unit_kelvin">كلفن</string>
+    <string name="settings_wind_speed">سرعة الرياح</string>
+    <string name="settings_unit_ms">م/ث</string>
+    <string name="settings_unit_mph">ميل/س</string>
+
+    <!-- Settings – Language -->
+    <string name="settings_section_language">اللغة</string>
+    <string name="settings_app_language">لغة التطبيق</string>
+    <string name="settings_currently_language">الحالية %1$s</string>
+    <string name="settings_language_icon_cd">أيقونة اللغة</string>
+    <string name="settings_lang_en">إنجليزي</string>
+    <string name="settings_lang_ar">عربي</string>
+
+    <!-- Favorites Screen -->
+    <string name="favorites_title">المفضلة</string>
+    <string name="favorites_search_cd">البحث في المفضلة</string>
+    <string name="favorites_remove_cd">إزالة %1$s من المفضلة</string>
+    <string name="favorites_add_cd">إضافة موقع مفضل</string>
+    <string name="favorites_weather_icon_cd">أيقونة الطقس لـ %1$s</string>
+    <string name="favorites_temp_condition_format">%1$s · %2$s</string>
+    <string name="favorites_preview_image_cd">معاينة الطقس لـ %1$s</string>
+    <string name="favorites_empty">لا توجد مواقع مفضلة بعد.\nاضغط + للإضافة.</string>
+
+    <!-- Add Favorite Screen -->
+    <string name="add_favorite_title">إضافة مفضلة</string>
+    <string name="add_favorite_search_hint">ابحث عن مدينة…</string>
+    <string name="add_favorite_search_cd">بحث عن مدينة</string>
+    <string name="add_favorite_clear_cd">مسح البحث</string>
+    <string name="add_favorite_suggestion_icon_cd">اقتراح موقع</string>
+    <string name="add_favorite_pick_this_location">اختر هذا الموقع</string>
+    <string name="add_favorite_save_location">حفظ الموقع</string>
+    <string name="add_favorite_save_icon_cd">أيقونة حفظ الموقع</string>
+    <string name="add_favorite_map_cd">خريطة الموقع المحدد</string>
+
+    <!-- Map Screen -->
+    <string name="map_screen_title">إضافة مفضلة</string>
+
+    <!-- Weather Alerts Screen -->
+    <string name="alerts_title">تنبيهات الطقس</string>
+    <string name="alerts_add_button">إضافة تنبيه طقس</string>
+    <string name="alerts_add_button_cd">إضافة تنبيه جديد</string>
+    <string name="alerts_enabled">التنبيهات مفعلة</string>
+    <string name="alerts_enabled_subtitle">استلام إشعارات للطقس القاسي</string>
+    <string name="alerts_enabled_cd">تبديل تنبيهات الطقس</string>
+    <string name="alerts_active_duration">المدة الفعالة</string>
+    <string name="alerts_active_duration_icon_cd">أيقونة المدة</string>
+    <string name="alerts_duration_1h">ساعة</string>
+    <string name="alerts_duration_6h">6 ساعات</string>
+    <string name="alerts_duration_24h">24 ساعة</string>
+    <string name="alerts_notification_style">نمط الإشعار</string>
+    <string name="alerts_notification_style_icon_cd">أيقونة نمط الإشعار</string>
+    <string name="alerts_style_standard">إشعار عادي</string>
+    <string name="alerts_style_standard_icon_cd">أيقونة الإشعار العادي</string>
+    <string name="alerts_style_alarm">منبه افتراضي</string>
+    <string name="alerts_style_alarm_icon_cd">أيقونة المنبه</string>
+    <string name="alerts_empty">لا توجد تنبيهات طقس نشطة في منطقتك.</string>
+    <string name="alerts_section_active">التنبيهات النشطة</string>
+    <string name="alerts_remove_cd">إزالة التنبيه %1$s</string>
+    <string name="alerts_item_icon_cd">أيقونة التنبيه</string>
+</resources>
