@@ -1,4 +1,4 @@
-package com.wahid.wurly.presentation.common.components
+package com.wahid.wurly.presentation.screen.settings.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +23,7 @@ import com.wahid.wurly.R
 /**
  * Top bar with back button and centered title.
  *
- * Unlike [ForecastTopBar], this has no trailing action — just a balanced
+ * Unlike [com.wahid.wurly.presentation.screen.forecast.component.ForecastTopBar], this has no trailing action — just a balanced
  * layout with a spacer to keep the title centered.
  *
  * Stateless — all actions are hoisted via callbacks.

@@ -1,4 +1,4 @@
-package com.wahid.wurly.presentation.common.components
+package com.wahid.wurly.presentation.screen.settings.component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

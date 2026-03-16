@@ -1,4 +1,4 @@
-package com.wahid.wurly.presentation.common.components
+package com.wahid.wurly.presentation.screen.settings.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

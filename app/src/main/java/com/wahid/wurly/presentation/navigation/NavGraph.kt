@@ -1,5 +1,6 @@
 package com.wahid.wurly.presentation.navigation
 
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -16,7 +17,7 @@ import com.wahid.wurly.presentation.screen.alerts.alerts
 import com.wahid.wurly.presentation.screen.map.map
 
 
-private const val TRANSITION_DURATION = 200
+private const val TRANSITION_DURATION = 600
 
 @Composable
 fun NavGraph(
@@ -29,16 +30,20 @@ fun NavGraph(
         startDestination = DestinationRoutes.Home,
         enterTransition = {
             fadeIn(
-                animationSpec = tween(TRANSITION_DURATION)
+                animationSpec = tween(TRANSITION_DURATION, easing = FastOutLinearInEasing)
             )
         }, exitTransition = {
             fadeOut(
-                animationSpec = tween(TRANSITION_DURATION)
+                animationSpec = tween(TRANSITION_DURATION, easing = FastOutLinearInEasing)
             )
         }
     ) {
-        home()
-        forecast()
+        home(onNavigateToForecast = {
+                navHostController.navigate(DestinationRoutes.Forecast)
+        })
+        forecast(onBackClick = {
+            navHostController.navigateUp()
+        })
         settings()
         favorites()
         addFavorite()
