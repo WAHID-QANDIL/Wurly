@@ -1,6 +1,6 @@
 # 🌦️ Wurly - Modern Weather App
 
-![banner.png](banner.png)
+![img_1.png](img.png)
 
 Wurly is a premium, feature-rich weather application for Android that provides real-time weather updates with a stunning glassmorphism design. Built using the latest Android development standards, Wurly focuses on performance, reliability, and a superior user experience.
 
