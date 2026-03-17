@@ -49,4 +49,16 @@ class LocalWeatherDatasourceImpl @Inject constructor(
         weatherDao.removeCityFromFavorites(city = city)
     }
 
+    override suspend fun upsertAlert(alert: com.wahid.wurly.data.local.database.entity.WeatherAlertEntity) {
+        weatherDao.upsertAlert(alert)
+    }
+
+    override suspend fun deleteAlert(id: Long) {
+        weatherDao.deleteAlert(id)
+    }
+
+    override fun observeAlerts(): Flow<List<com.wahid.wurly.data.local.database.entity.WeatherAlertEntity>> {
+        return weatherDao.observeAlerts()
+    }
+
 }

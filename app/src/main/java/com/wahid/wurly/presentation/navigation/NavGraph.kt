@@ -12,7 +12,6 @@ import com.wahid.wurly.presentation.screen.home.home
 import com.wahid.wurly.presentation.screen.forecast.forecast
 import com.wahid.wurly.presentation.screen.settings.settings
 import com.wahid.wurly.presentation.screen.favorites.favorites
-import com.wahid.wurly.presentation.screen.addfavorite.addFavorite
 import com.wahid.wurly.presentation.screen.alerts.alerts
 import com.wahid.wurly.presentation.screen.map.map
 
@@ -48,7 +47,6 @@ fun NavGraph(
         favorites(onFavoriteClick = { cityId ->
              navHostController.navigate(DestinationRoutes.Forecast(cityId = cityId))
         })
-        addFavorite()
         map()
         alerts()
     }

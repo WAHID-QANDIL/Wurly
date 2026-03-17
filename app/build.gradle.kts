@@ -90,8 +90,15 @@ dependencies {
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-//    implementation(libs.androidx.hilt.work)
+    implementation(libs.androidx.hilt.work)
     ksp(libs.hilt.compiler)
+
+
+    //WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
+
+
 
     //Lifecycle
     implementation(libs.androidx.lifecycle.runtime.compose)

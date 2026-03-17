@@ -20,6 +20,7 @@ import com.wahid.wurly.ui.theme.WurlyTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import com.wahid.wurly.utils.LocaleHelper
+import com.wahid.wurly.work.WeatherAlertScheduler
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         lifecycle.addObserver(MainActivityLifecycleObserver.getInstance(this))
         super.onCreate(savedInstanceState)
+        WeatherAlertScheduler.scheduleDailySync(this)
         enableEdgeToEdge()
         setContent {
             val appSettingsViewModel: AppSettingsViewModel = hiltViewModel()

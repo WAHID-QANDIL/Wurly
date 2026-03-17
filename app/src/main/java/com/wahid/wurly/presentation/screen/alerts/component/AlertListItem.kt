@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.StopCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -31,7 +31,7 @@ import com.wahid.wurly.R
  * A single active weather alert row rendered inside a GlassBox container.
  *
  * Displays an icon, title with description subtitle, timestamp,
- * and a remove (×) button.
+ * and a Stop (×) button that cancels / removes the alert.
  *
  * Must be called inside a [GlassBoxScope].
  */
@@ -42,7 +42,7 @@ fun GlassBoxScope.AlertListItem(
     title: String,
     description: String,
     timestamp: String,
-    onRemoveClick: () -> Unit,
+    onStopClick: () -> Unit,
 ) {
     val cornerRadius = dimensionResource(R.dimen.alerts_item_corner_radius)
 
@@ -57,7 +57,7 @@ fun GlassBoxScope.AlertListItem(
             title = title,
             description = description,
             timestamp = timestamp,
-            onRemoveClick = onRemoveClick,
+            onStopClick = onStopClick,
         )
     }
 }
@@ -69,7 +69,7 @@ private fun AlertListItemContent(
     title: String,
     description: String,
     timestamp: String,
-    onRemoveClick: () -> Unit,
+    onStopClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -107,15 +107,15 @@ private fun AlertListItemContent(
         }
 
         IconButton(
-            onClick = onRemoveClick,
+            onClick = onStopClick,
             modifier = Modifier.size(dimensionResource(R.dimen.favorites_remove_icon_size)),
             colors = IconButtonDefaults.iconButtonColors(
-                contentColor = Color.White.copy(alpha = 0.7f),
+                contentColor = MaterialTheme.colorScheme.error.copy(alpha = 0.85f),
             ),
         ) {
             Icon(
-                imageVector = Icons.Filled.Close,
-                contentDescription = stringResource(R.string.alerts_remove_cd, title),
+                imageVector = Icons.Filled.StopCircle,
+                contentDescription = stringResource(R.string.alerts_stop_cd, title),
             )
         }
     }

@@ -22,8 +22,12 @@ import com.wahid.wurly.R
 /**
  * A row with an icon, label, and a trailing radio button.
  *
- * Used for selecting a notification style (Standard / Alarm).
+ * Used for selecting a notification style (Standard / Alarm) and alert type.
  * Clicking anywhere in the row selects the option.
+ *
+ * @param isDark When true (default), renders text/icons in white suitable for glass/dark
+ *               backgrounds. When false, uses the theme's onSurface colour for light
+ *               backgrounds such as the Add Alert bottom-sheet.
  *
  * Stateless — the selected state and click callback are hoisted.
  */
@@ -35,7 +39,12 @@ fun AlertsRadioRow(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
+    isDark: Boolean = true,
 ) {
+    val contentColor = if (isDark) Color.White else MaterialTheme.colorScheme.onSurface
+    val unselectedRadioColor = if (isDark) Color.White.copy(alpha = 0.5f)
+    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+
     Row(
         modifier = modifier.clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically,
@@ -44,7 +53,7 @@ fun AlertsRadioRow(
             imageVector = icon,
             contentDescription = iconContentDescription,
             modifier = Modifier.size(dimensionResource(R.dimen.alerts_row_icon_size)),
-            tint = Color.White,
+            tint = contentColor,
         )
 
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.alerts_row_icon_spacing)))
@@ -55,7 +64,7 @@ fun AlertsRadioRow(
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.Medium,
             ),
-            color = Color.White,
+            color = contentColor,
         )
 
         RadioButton(
@@ -63,7 +72,7 @@ fun AlertsRadioRow(
             onClick = onClick,
             colors = RadioButtonDefaults.colors(
                 selectedColor = MaterialTheme.colorScheme.secondary,
-                unselectedColor = Color.White.copy(alpha = 0.5f),
+                unselectedColor = unselectedRadioColor,
             ),
         )
     }

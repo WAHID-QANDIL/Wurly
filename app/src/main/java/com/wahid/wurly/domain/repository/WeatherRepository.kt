@@ -14,7 +14,8 @@ interface WeatherRepository : DomainBaseRepository {
     suspend fun getNextForecastDays(): Flow<ForecastDays?>
     suspend fun getForecastDaysWeather(
         filters: Map<String, String>,
-        isFavorite: Boolean
+        isFavorite: Boolean,
+        forceRefresh: Boolean = false
     ): Flow<ForecastDays>
 
     suspend fun getFiveDaySummaries(
@@ -26,4 +27,8 @@ interface WeatherRepository : DomainBaseRepository {
     fun getFavoriteCityWeathers(): Flow<List<FavoriteCityWeather>>
     suspend fun addCityToFavorites(city: City)
     suspend fun removeCityFromFavorites(city: City)
+
+    fun observeAlerts(): Flow<List<com.wahid.wurly.domain.model.weather.WeatherAlert>>
+    suspend fun upsertAlert(alert: com.wahid.wurly.domain.model.weather.WeatherAlert)
+    suspend fun deleteAlert(id: Long)
 }

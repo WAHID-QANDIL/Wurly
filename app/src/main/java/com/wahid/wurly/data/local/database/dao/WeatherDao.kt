@@ -8,6 +8,7 @@ import androidx.room.Upsert
 import com.wahid.wurly.data.local.database.entity.City
 import com.wahid.wurly.data.local.database.entity.DayWeather
 import com.wahid.wurly.data.local.database.entity.ForecastDayWeather
+import com.wahid.wurly.data.local.database.entity.WeatherAlertEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -43,4 +44,13 @@ interface WeatherDao {
 
     @Delete
     suspend fun removeCityFromFavorites(city: City)
+
+    @Upsert
+    suspend fun upsertAlert(alert: WeatherAlertEntity)
+
+    @Query("DELETE FROM weather_alert WHERE id = :id")
+    suspend fun deleteAlert(id: Long)
+
+    @Query("SELECT * FROM weather_alert ORDER BY createdAt DESC")
+    fun observeAlerts(): Flow<List<WeatherAlertEntity>>
 }

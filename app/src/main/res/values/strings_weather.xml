@@ -139,4 +139,24 @@
     <string name="alerts_section_active">ACTIVE ALERTS</string>
     <string name="alerts_remove_cd">Remove alert %1$s</string>
     <string name="alerts_item_icon_cd">Alert icon</string>
+
+    <!-- Alerts Notifications -->
+    <string name="alerts_notification_title">Weather alert</string>
+    <string name="alerts_notification_alarm">Alarm is active</string>
+    <string name="alerts_notification_standard">Notification active</string>
+    <string name="alerts_notification_stop">Stop</string>
+    <string name="alerts_channel_name">Weather alerts</string>
+    <string name="alerts_channel_description">Alerts for severe weather</string>
+
+    <!-- Alert Cases -->
+    <string name="alerts_case_storm">Storm</string>
+    <string name="alerts_case_heat">Heat advisory</string>
+    <string name="alerts_case_flood">Flash flood watch</string>
+
+    <!-- Add Alert sheet -->
+    <string name="alerts_set_alert_button">Set Alert</string>
+    <string name="alerts_alert_type_title">Alert Type</string>
+    <string name="alerts_stop_cd">Stop alert %1$s</string>
+    <string name="alerts_case_custom_temperature">Custom temperature</string>
+    <string name="alerts_custom_temperature_trigger">Trigger above: %1$d°</string>
 </resources>

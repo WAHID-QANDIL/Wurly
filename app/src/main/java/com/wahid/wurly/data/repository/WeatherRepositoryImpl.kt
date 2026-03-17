@@ -2,10 +2,12 @@ package com.wahid.wurly.data.repository
 
 import android.util.Log
 import com.wahid.wurly.data.common.mapper.WeatherDayMappers.toDomain
-import com.wahid.wurly.data.common.mapper.WeatherDayMappers.toDomainCity
 import com.wahid.wurly.data.common.mapper.WeatherDayMappers.toDomainDayWeather
+import com.wahid.wurly.data.common.mapper.WeatherDayMappers.toDomainWeather
+import com.wahid.wurly.data.common.mapper.WeatherDayMappers.toDomainCity
 import com.wahid.wurly.data.local.database.entity.City as CityEntity
 import com.wahid.wurly.data.local.database.entity.DayWeather as DayWeatherEntity
+import com.wahid.wurly.data.local.database.entity.WeatherAlertEntity
 import com.wahid.wurly.data.remote.api.dto.model.forecast_dayweather.ForecastDay
 import com.wahid.wurly.data.remote.api.dto.ForecastDayWeather as ForecastDto
 import com.wahid.wurly.data.local.database.entity.ForecastDayWeather as ForecastEntity
@@ -17,6 +19,9 @@ import com.wahid.wurly.domain.model.weather.City
 import com.wahid.wurly.domain.model.weather.DayWeather
 import com.wahid.wurly.domain.model.weather.ForecastDays
 import com.wahid.wurly.domain.model.weather.FavoriteCityWeather
+import com.wahid.wurly.domain.model.weather.WeatherAlert
+import com.wahid.wurly.presentation.screen.alerts.AlertStyle
+import com.wahid.wurly.presentation.screen.alerts.AlertCase
 import com.wahid.wurly.domain.repository.WeatherRepository
 import com.wahid.wurly.utils.ApiResult
 import java.time.Instant
@@ -43,20 +48,44 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getCurrentDayWeather(filters: Map<String, String>): Flow<DayWeather> =
         flow {
+            val settings = localDataStore.userSettings.first()
+            if (settings.isCached) {
+                // If cached, pull the current conditions from the local forecast database
+                val cachedForecast = localDatasource.observeLatestForecast().firstOrNull()
+                if (cachedForecast != null && cachedForecast.dayWeatherList.isNotEmpty()) {
+                    val nowSeconds = System.currentTimeMillis() / 1000
+                    // Find the single forecasting block that is chronologically closest to right now
+                    val closestWeather = cachedForecast.dayWeatherList.minByOrNull {
+                        kotlin.math.abs(it.dayTime - nowSeconds)
+                    } ?: cachedForecast.dayWeatherList.first()
+
+                    val sysMapper = com.wahid.wurly.data.remote.api.dto.model.dayweather.Sys(
+                        country = cachedForecast.city.country,
+                        sunrise = cachedForecast.city.sunrise,
+                        sunset = cachedForecast.city.sunset
+                    )
+                    emit(closestWeather.toDomainWeather(sys = sysMapper, cityName = cachedForecast.city.name))
+                    return@flow
+                }
+            }
+            
+            // Fallback to fetching remotely if not cached yet
             val dayWeather = remoteWeatherDatasource
                 .getCurrentWeather(weatherInfo = filters)
                 .getOrThrow()
             emit(dayWeather.toDomainDayWeather())
+            
         }.catch { throw it.toCustomRemoteExceptionDomainModel() }
 
     override suspend fun getForecastDaysWeather(
         filters: Map<String, String>,
-        isFavorite: Boolean
+        isFavorite: Boolean,
+        forceRefresh: Boolean
     ): Flow<ForecastDays> =
         flow {
             val settings = localDataStore.userSettings.first()
             val cached = localDatasource.observeLatestForecast().firstOrNull()
-            val shouldRefresh = isFavorite || !settings.isCached || cached == null
+            val shouldRefresh = forceRefresh || isFavorite || !settings.isCached || cached == null
 
             val cityId = if (shouldRefresh) {
                 val forecastDto = remoteWeatherDatasource
@@ -113,6 +142,18 @@ class WeatherRepositoryImpl @Inject constructor(
                  }
              }
      }
+
+    override fun observeAlerts(): Flow<List<WeatherAlert>> {
+        return localDatasource.observeAlerts().map { list -> list.map { it.toDomain() } }
+    }
+
+    override suspend fun upsertAlert(alert: WeatherAlert) {
+        localDatasource.upsertAlert(alert.toEntity())
+    }
+
+    override suspend fun deleteAlert(id: Long) {
+        localDatasource.deleteAlert(id)
+    }
 
     override suspend fun addCityToFavorites(city: City) {
         localDatasource.addCityToFavorites(city = city.toEntity(isFavorite = true))
@@ -214,3 +255,23 @@ private fun ForecastDays.toFiveDaySummaries(): ForecastDays{
         .sortedBy { it.dayTime }
     return copy(list = fiveDaySummaries)
 }
+
+private fun WeatherAlertEntity.toDomain(): WeatherAlert = WeatherAlert(
+    id = id,
+    alertCase = AlertCase.valueOf(alertCase),
+    style = AlertStyle.valueOf(style),
+    durationMillis = durationMillis,
+    createdAt = createdAt,
+    enabled = enabled,
+    targetTemperature = targetTemperature,
+)
+
+private fun WeatherAlert.toEntity(): WeatherAlertEntity = WeatherAlertEntity(
+    id = id,
+    alertCase = alertCase.name,
+    style = style.name,
+    durationMillis = durationMillis,
+    createdAt = createdAt,
+    enabled = enabled,
+    targetTemperature = targetTemperature,
+)

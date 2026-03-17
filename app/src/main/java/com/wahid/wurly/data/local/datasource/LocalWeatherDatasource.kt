@@ -18,4 +18,8 @@ interface LocalWeatherDatasource {
     suspend fun addCityToFavorites(city: City)
     suspend fun removeCityFromFavorites(city: City)
 
+    suspend fun upsertAlert(alert: com.wahid.wurly.data.local.database.entity.WeatherAlertEntity)
+    suspend fun deleteAlert(id: Long)
+    fun observeAlerts(): Flow<List<com.wahid.wurly.data.local.database.entity.WeatherAlertEntity>>
+
 }

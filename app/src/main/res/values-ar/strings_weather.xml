@@ -140,4 +140,27 @@
     <string name="alerts_section_active">التنبيهات النشطة</string>
     <string name="alerts_remove_cd">إزالة التنبيه %1$s</string>
     <string name="alerts_item_icon_cd">أيقونة التنبيه</string>
+
+
+<!--    TODO: Translate the following strings for Alerts Notifications-->
+
+    <!-- Alerts Notifications -->
+    <string name="alerts_notification_title">تنبيه طقس</string>
+    <string name="alerts_notification_alarm">المنبه نشط</string>
+    <string name="alerts_notification_standard">الإشعار نشط</string>
+    <string name="alerts_notification_stop">إيقاف</string>
+    <string name="alerts_channel_name">تنبيهات الطقس</string>
+    <string name="alerts_channel_description">تنبيهات للطقس القاسي</string>
+
+    <!-- Alert Cases -->
+    <string name="alerts_case_storm">عاصفة</string>
+    <string name="alerts_case_heat">تحذير حرارة</string>
+    <string name="alerts_case_flood">تحذير فيضان مفاجئ</string>
+
+    <!-- Add Alert sheet -->
+    <string name="alerts_set_alert_button">تعيين التنبيه</string>
+    <string name="alerts_alert_type_title">نوع التنبيه</string>
+    <string name="alerts_stop_cd">إيقاف التنبيه %1$s</string>
+    <string name="alerts_case_custom_temperature">درجة حرارة مخصصة</string>
+    <string name="alerts_custom_temperature_trigger">التنبيه إذا تجاوزت: %1$d°</string>
 </resources>
