@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="weather_screen_horizontal_padding">20dp</dimen>
+    <dimen name="weather_screen_top_padding">48dp</dimen>
+    <dimen name="weather_back_button_size">40dp</dimen>
+    <dimen name="weather_temperature_text_size">96sp</dimen>
+    <dimen name="weather_condition_text_size">24sp</dimen>
+    <dimen name="weather_temperature_top_spacing">24dp</dimen>
+    <dimen name="weather_condition_top_spacing">4dp</dimen>
+    <dimen name="weather_detail_card_corner_radius">20dp</dimen>
+    <dimen name="weather_detail_card_padding">16dp</dimen>
+    <dimen name="weather_detail_grid_spacing">12dp</dimen>
+    <dimen name="weather_detail_grid_top_spacing">32dp</dimen>
+    <dimen name="weather_detail_icon_size">16dp</dimen>
+    <dimen name="weather_detail_icon_spacing">6dp</dimen>
+    <dimen name="weather_detail_value_top_spacing">8dp</dimen>
+    <dimen name="weather_detail_subtitle_top_spacing">2dp</dimen>
+    <dimen name="weather_nav_height">84dp</dimen>
+    <dimen name="weather_nav_icon_size">28dp</dimen>
+    <dimen name="weather_nav_indicator_size">8dp</dimen>
+
+    <!-- 7-Day Forecast Screen -->
+    <dimen name="forecast_row_corner_radius">20dp</dimen>
+    <dimen name="forecast_row_vertical_padding">16dp</dimen>
+    <dimen name="forecast_row_horizontal_padding">16dp</dimen>
+    <dimen name="forecast_row_spacing">8dp</dimen>
+    <dimen name="forecast_icon_size">40dp</dimen>
+    <dimen name="forecast_icon_text_spacing">12dp</dimen>
+    <dimen name="forecast_list_top_spacing">16dp</dimen>
+
+    <!-- Settings Screen -->
+    <dimen name="settings_card_corner_radius">20dp</dimen>
+    <dimen name="settings_card_padding">16dp</dimen>
+    <dimen name="settings_section_spacing">16dp</dimen>
+    <dimen name="settings_section_title_bottom_spacing">12dp</dimen>
+    <dimen name="settings_row_icon_size">24dp</dimen>
+    <dimen name="settings_row_icon_spacing">12dp</dimen>
+    <dimen name="settings_row_vertical_padding">12dp</dimen>
+    <dimen name="settings_chip_corner_radius">20dp</dimen>
+    <dimen name="settings_chip_horizontal_padding">20dp</dimen>
+    <dimen name="settings_chip_vertical_padding">8dp</dimen>
+    <dimen name="settings_chip_spacing">0dp</dimen>
+    <dimen name="settings_label_bottom_spacing">8dp</dimen>
+    <dimen name="settings_list_top_spacing">16dp</dimen>
+
+    <!-- Favorites Screen -->
+    <dimen name="favorites_card_corner_radius">20dp</dimen>
+    <dimen name="favorites_card_padding">16dp</dimen>
+    <dimen name="favorites_card_spacing">10dp</dimen>
+    <dimen name="favorites_preview_image_size">56dp</dimen>
+    <dimen name="favorites_preview_corner_radius">12dp</dimen>
+    <dimen name="favorites_remove_icon_size">24dp</dimen>
+    <dimen name="favorites_weather_icon_size">16dp</dimen>
+    <dimen name="favorites_weather_icon_spacing">4dp</dimen>
+    <dimen name="favorites_fab_size">56dp</dimen>
+    <dimen name="favorites_fab_margin">24dp</dimen>
+    <dimen name="favorites_list_top_spacing">16dp</dimen>
+
+    <!-- Add Favorite Screen -->
+    <dimen name="add_fav_search_corner_radius">28dp</dimen>
+    <dimen name="add_fav_search_horizontal_padding">16dp</dimen>
+    <dimen name="add_fav_search_vertical_padding">12dp</dimen>
+    <dimen name="add_fav_search_icon_size">20dp</dimen>
+    <dimen name="add_fav_suggestion_padding">12dp</dimen>
+    <dimen name="add_fav_suggestion_icon_size">20dp</dimen>
+    <dimen name="add_fav_suggestion_icon_spacing">12dp</dimen>
+    <dimen name="add_fav_suggestion_corner_radius">16dp</dimen>
+    <dimen name="add_fav_map_corner_radius">0dp</dimen>
+    <dimen name="add_fav_save_button_height">56dp</dimen>
+    <dimen name="add_fav_save_button_corner_radius">28dp</dimen>
+    <dimen name="add_fav_save_button_horizontal_margin">24dp</dimen>
+    <dimen name="add_fav_save_button_bottom_margin">16dp</dimen>
+    <dimen name="add_fav_section_spacing">12dp</dimen>
+    <dimen name="add_fav_pick_label_vertical_padding">8dp</dimen>
+    <dimen name="add_fav_pick_label_horizontal_padding">16dp</dimen>
+    <dimen name="add_fav_pick_label_corner_radius">20dp</dimen>
+
+    <!-- Weather Alerts Screen -->
+    <dimen name="alerts_add_button_height">48dp</dimen>
+    <dimen name="alerts_add_button_corner_radius">24dp</dimen>
+    <dimen name="alerts_card_corner_radius">20dp</dimen>
+    <dimen name="alerts_card_padding">16dp</dimen>
+    <dimen name="alerts_section_spacing">12dp</dimen>
+    <dimen name="alerts_row_icon_size">24dp</dimen>
+    <dimen name="alerts_row_icon_spacing">12dp</dimen>
+    <dimen name="alerts_radio_size">20dp</dimen>
+    <dimen name="alerts_item_corner_radius">16dp</dimen>
+    <dimen name="alerts_item_padding">14dp</dimen>
+    <dimen name="alerts_item_spacing">8dp</dimen>
+    <dimen name="alerts_list_top_spacing">16dp</dimen>
+</resources>
