@@ -1,5 +1,6 @@
 package com.wahid.wurly.presentation.screen.forecast.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,17 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import coil3.compose.AsyncImage
 import com.mrtdk.glass.GlassBox
 import com.mrtdk.glass.GlassBoxScope
 import com.wahid.wurly.R
@@ -36,9 +36,11 @@ fun GlassBoxScope.ForecastDayRow(
     modifier: Modifier = Modifier,
     dayName: String,
     condition: String,
-    conditionIcon: ImageVector,
+    conditionIcon: String,
     highTemp: String,
     lowTemp: String,
+    date: String,
+    time: String,
 ) {
     val cornerRadius = dimensionResource(R.dimen.forecast_row_corner_radius)
 
@@ -54,6 +56,8 @@ fun GlassBoxScope.ForecastDayRow(
             conditionIcon = conditionIcon,
             highTemp = highTemp,
             lowTemp = lowTemp,
+            date = date,
+            time = time,
         )
     }
 }
@@ -68,9 +72,11 @@ private fun ForecastDayRowContent(
     modifier: Modifier = Modifier,
     dayName: String,
     condition: String,
-    conditionIcon: ImageVector,
+    conditionIcon: String,
     highTemp: String,
     lowTemp: String,
+    date: String,
+    time: String,
 ) {
     Row(
         modifier = modifier
@@ -81,11 +87,10 @@ private fun ForecastDayRowContent(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            imageVector = conditionIcon,
+        AsyncImage(
+            model = "https://openweathermap.org/img/wn/${conditionIcon}@2x.png",
             contentDescription = stringResource(R.string.forecast_day_icon_cd, dayName),
             modifier = Modifier.size(dimensionResource(R.dimen.forecast_icon_size)),
-            tint = Color.White,
         )
 
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.forecast_icon_text_spacing)))
@@ -100,6 +105,11 @@ private fun ForecastDayRowContent(
             )
             Text(
                 text = condition,
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White.copy(alpha = 0.7f),
+            )
+            Text(
+                text = "$date $time",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.White.copy(alpha = 0.7f),
             )

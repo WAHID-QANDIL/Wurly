@@ -8,7 +8,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class ForecastDayItem(
     val dayName: String,
     val condition: String,
-    val conditionIcon: ImageVector,
+    val conditionIcon: String,
     val highTemp: String,
     val lowTemp: String,
+    val date: String,
+    val time: String,
 )

@@ -6,14 +6,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.wahid.wurly.presentation.navigation.DestinationRoutes
 
-fun NavGraphBuilder.forecast() {
+fun NavGraphBuilder.forecast(
+    onBackClick: () -> Unit,
+) {
     composable<DestinationRoutes.Forecast> {
         val viewModel: ForecastViewModel = hiltViewModel()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         ForecastScreen(
             uiState = uiState.value,
-            onEvent = viewModel::onEvent,
+            onEvent = viewModel::onEvent, onBackClick = onBackClick
         )
     }
 }

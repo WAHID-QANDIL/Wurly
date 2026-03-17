@@ -3,8 +3,8 @@ package com.wahid.wurly.data.common.mapper
 import com.wahid.wurly.data.local.database.entity.City
 import com.wahid.wurly.data.local.database.entity.ForecastDayWeather
 import com.wahid.wurly.data.remote.api.dto.model.dayweather.Sys
-import com.wahid.wurly.domain.model.DayWeather
-import com.wahid.wurly.domain.model.ForecastDays
+import com.wahid.wurly.domain.model.weather.DayWeather
+import com.wahid.wurly.domain.model.weather.ForecastDays
 import com.wahid.wurly.utils.ExtUtils.toDateAndTime
 
 object WeatherDayMappers {
@@ -40,11 +40,12 @@ object WeatherDayMappers {
             tempKf = main.temp_kf,
             tempMax = main.temp_max,
             tempMin = main.temp_min,
-            visibility = visibility,
+            visibility = visibility.toDouble(),
             windDirectionDegrees = wind.windDirectionDegrees,
             windGust = wind.windGust ?: 0.0,
             windSpeed = wind.windSpeed,
             sys = sys,
+            condition = weather.toDomain()
         )
     }
 
@@ -66,25 +67,27 @@ object WeatherDayMappers {
             tempKf = main.temp_kf,
             tempMax = main.temp_max,
             tempMin = main.temp_min,
-            visibility = visibility,
+            visibility = visibility.toDouble(),
             windDirectionDegrees = wind.windDirectionDegrees,
             windGust = wind.windGust ?: 0.0,
             windSpeed = wind.windSpeed,
-            sys = sys
+            sys = sys,
+            condition = weather.toDomain()
         )
     }
 
 
-    fun City.toDomainCity(): com.wahid.wurly.domain.model.City = com.wahid.wurly.domain.model.City(
-        id = id,
-        country = country,
-        name = name,
-        population = population,
-        sunrise = sunrise,
-        sunset = sunset,
-        timezone = timezone,
-        latitude = coordinates.latitude,
-        longitude = coordinates.longitude
-    )
+    fun City.toDomainCity(): com.wahid.wurly.domain.model.weather.City =
+        com.wahid.wurly.domain.model.weather.City(
+            id = id,
+            country = country,
+            name = name,
+            population = population,
+            sunrise = sunrise,
+            sunset = sunset,
+            timezone = timezone,
+            latitude = coordinates.latitude,
+            longitude = coordinates.longitude
+        )
 
 }

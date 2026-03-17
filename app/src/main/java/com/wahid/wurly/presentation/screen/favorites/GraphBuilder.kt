@@ -6,14 +6,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.wahid.wurly.presentation.navigation.DestinationRoutes
 
-fun NavGraphBuilder.favorites() {
+fun NavGraphBuilder.favorites(
+    onFavoriteClick: (Long) -> Unit,
+) {
     composable<DestinationRoutes.Favorites> {
         val viewModel: FavoritesViewModel = hiltViewModel()
         val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
         FavoritesScreen(
             uiState = uiState.value,
-            onEvent = viewModel::onEvent,
+            onFavoriteClick = onFavoriteClick,
+            onRemoveFavorite = { id -> viewModel.onEvent(FavoritesUiEvent.OnRemoveFavorite(id)) },
         )
     }
 }

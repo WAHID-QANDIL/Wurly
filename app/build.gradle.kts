@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -66,6 +65,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material)
     //Retrofit
     implementation(libs.kotlinx.serialization.retrofit.converter)
     implementation(libs.retrofit)
@@ -87,7 +87,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
 
-
     //Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -98,8 +97,26 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
 
-    //Testing
 
+    //MapBox
+    implementation(libs.android.map.box)
+    implementation(libs.maps.compose)
+    implementation(libs.mapbox.search.android)
+    implementation(libs.place.autocomplete)
+
+
+
+    // Datastore
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore)
+
+
+
+    //Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+    //Testing
 
 
     // Junit
@@ -111,6 +128,10 @@ dependencies {
 
     //Room
     testImplementation(libs.androidx.room.testing)
+
+    //Coroutines
+    testImplementation(libs.kotlinx.coroutines.test)
+
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.compose.ui.tooling)

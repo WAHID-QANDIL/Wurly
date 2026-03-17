@@ -39,13 +39,15 @@ fun NavGraph(
         }
     ) {
         home(onNavigateToForecast = {
-                navHostController.navigate(DestinationRoutes.Forecast)
+                navHostController.navigate(DestinationRoutes.Forecast())
         })
         forecast(onBackClick = {
-            navHostController.navigateUp()
+             navHostController.navigateUp()
         })
         settings()
-        favorites()
+        favorites(onFavoriteClick = { cityId ->
+             navHostController.navigate(DestinationRoutes.Forecast(cityId = cityId))
+        })
         addFavorite()
         map()
         alerts()
