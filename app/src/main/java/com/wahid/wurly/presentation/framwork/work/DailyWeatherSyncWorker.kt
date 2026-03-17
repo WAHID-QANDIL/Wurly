@@ -6,7 +6,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.wahid.wurly.domain.repository.WeatherRepository
-import com.wahid.wurly.presentation.framwork.location.LocationServiceProvider
+import com.wahid.wurly.data.location.LocationServiceProvider
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.firstOrNull
@@ -42,7 +42,7 @@ class DailyWeatherSyncWorker @AssistedInject constructor(
             }
             mapOf("lat" to city.latitude.toString(), "lon" to city.longitude.toString())
         }
-        
+
         try {
             repository.getForecastDaysWeather(
                 filters = filters,

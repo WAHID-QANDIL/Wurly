@@ -28,5 +28,9 @@ sealed interface MapUiEvent {
     data object OnClearSearch : MapUiEvent
     data class OnSuggestionClick(val suggestion: LocationSuggestion) : MapUiEvent
     data object OnSaveLocation : MapUiEvent
-    data class OnMapTap(val latitude: Double, val longitude: Double, val label: String = "Pinned location") : MapUiEvent
+    data class OnMapTap(
+        val latitude: Double,
+        val longitude: Double,
+        val label: String = "",
+    ) : MapUiEvent
 }

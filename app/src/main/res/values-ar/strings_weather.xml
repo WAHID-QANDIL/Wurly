@@ -93,6 +93,8 @@
     <string name="settings_language_icon_cd">أيقونة اللغة</string>
     <string name="settings_lang_en">إنجليزي</string>
     <string name="settings_lang_ar">عربي</string>
+    <string name="settings_language_name_english">الإنجليزية</string>
+    <string name="settings_language_name_arabic">العربية</string>
 
     <!-- Favorites Screen -->
     <string name="favorites_title">المفضلة</string>
@@ -117,6 +119,10 @@
 
     <!-- Map Screen -->
     <string name="map_screen_title">إضافة مفضلة</string>
+    <string name="map_pinned_location_label">موقع مثبت</string>
+    <string name="map_error_no_location_selected">لم يتم تحديد موقع</string>
+    <string name="map_error_save_location_failed">فشل حفظ الموقع</string>
+    <string name="map_error_select_suggestion_failed">خطأ أثناء تحديد الاقتراح: %1$s</string>
 
     <!-- Weather Alerts Screen -->
     <string name="alerts_title">تنبيهات الطقس</string>
@@ -156,6 +162,9 @@
     <string name="alerts_case_storm">عاصفة</string>
     <string name="alerts_case_heat">تحذير حرارة</string>
     <string name="alerts_case_flood">تحذير فيضان مفاجئ</string>
+    <string name="alerts_desc_storm_detected">تم رصد عاصفة أو رعد</string>
+    <string name="alerts_desc_heat_risk">خطر ارتفاع درجة الحرارة</string>
+    <string name="alerts_desc_flood_risk">خطر أمطار غزيرة أو فيضانات</string>
 
     <!-- Add Alert sheet -->
     <string name="alerts_set_alert_button">تعيين التنبيه</string>
@@ -163,4 +172,18 @@
     <string name="alerts_stop_cd">إيقاف التنبيه %1$s</string>
     <string name="alerts_case_custom_temperature">درجة حرارة مخصصة</string>
     <string name="alerts_custom_temperature_trigger">التنبيه إذا تجاوزت: %1$d°</string>
+
+    <!-- Permission Screens -->
+    <string name="permission_rationale_title">نحتاج إلى موقعك لعرض طقس منطقتك.</string>
+    <string name="permission_rationale_message">امنح إذن الموقع للمتابعة.</string>
+    <string name="permission_grant">منح الإذن</string>
+    <string name="permission_not_now">ليس الآن</string>
+    <string name="permission_denied_title">إذن الموقع مطلوب للمتابعة.</string>
+    <string name="permission_denied_message">فعّله من الإعدادات لعرض طقس منطقتك.</string>
+    <string name="permission_open_settings">فتح الإعدادات</string>
+    <string name="permission_cancel">إلغاء</string>
+
+    <!-- Common Errors -->
+    <string name="error_generic">حدث خطأ</string>
+    <string name="error_location_unavailable">تعذر الحصول على الموقع</string>
 </resources>

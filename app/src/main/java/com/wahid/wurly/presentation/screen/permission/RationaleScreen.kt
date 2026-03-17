@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.wahid.wurly.R
 
 /**
  * Shown when we should explain why location permission is needed before requesting again.
@@ -28,18 +30,18 @@ fun RationaleScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "We need your location to show local weather.",
+            text = stringResource(R.string.permission_rationale_title),
             style = MaterialTheme.typography.titleMedium
         )
         Text(
-            text = "Grant location permission to continue.",
+            text = stringResource(R.string.permission_rationale_message),
             style = MaterialTheme.typography.bodyMedium
         )
         Button(onClick = onGrant) {
-            Text(text = "Grant permission")
+            Text(text = stringResource(R.string.permission_grant))
         }
         Button(onClick = onDismiss) {
-            Text(text = "Not now")
+            Text(text = stringResource(R.string.permission_not_now))
         }
     }
 }

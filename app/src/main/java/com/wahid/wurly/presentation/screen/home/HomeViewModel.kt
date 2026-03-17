@@ -16,7 +16,7 @@ import com.wahid.wurly.domain.usecase.GetCurrentWeather
 import com.wahid.wurly.domain.usecase.GetDayForecast
 import com.wahid.wurly.domain.usecase.SettingsUseCases
 import com.wahid.wurly.presentation.common.model.ForecastCardItem
-import com.wahid.wurly.presentation.framwork.location.LocationServiceProvider
+import com.wahid.wurly.data.location.LocationServiceProvider
 import com.wahid.wurly.presentation.screen.home.component.WeatherDetailItem
 import com.wahid.wurly.utils.Constants.METERS_PER_KM
 import com.wahid.wurly.utils.Constants.METERS_PER_MILE
@@ -86,7 +86,8 @@ class HomeViewModel @Inject constructor(
                 _uiState.update { state ->
                     when (state) {
                         is HomeUiState.Success -> state.copy(isRefreshing = false)
-                        else -> HomeUiState.Error("Failed to get location")
+
+                        else -> HomeUiState.Error(resourceAccessor.getString(R.string.error_location_unavailable))
                     }
                 }
                 return@launch
@@ -117,7 +118,9 @@ class HomeViewModel @Inject constructor(
                 }
                 .catch {
                     setRefreshing(false)
-                    _uiState.value = HomeUiState.Error(it.message ?: "Error")
+                    _uiState.value = HomeUiState.Error(
+                        it.message ?: resourceAccessor.getString(R.string.error_generic)
+                    )
                 }
                 .collect { (forecast, currentWeather) ->
                     // settings reflected below for wind/visibility formatting

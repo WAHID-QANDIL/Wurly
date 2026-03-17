@@ -83,16 +83,19 @@ class MapViewModel @Inject constructor(
             }
 
             is MapUiEvent.OnMapTap -> {
+                val pinnedLabel = event.label.ifBlank {
+                    resourceAccessor.getString(R.string.map_pinned_location_label)
+                }
                 val suggestion = LocationSuggestion(
                     id = "pin_${event.latitude}_${event.longitude}",
-                    displayName = event.label,
+                    displayName = pinnedLabel,
                     latitude = event.latitude,
                     longitude = event.longitude,
                 )
                 updateSuccess { state ->
                     state.copy(
                         selectedSuggestion = suggestion,
-                        searchQuery = event.label,
+                        searchQuery = pinnedLabel,
                         suggestions = emptyList(),
                     )
                 }
@@ -101,7 +104,9 @@ class MapViewModel @Inject constructor(
             is MapUiEvent.OnSaveLocation -> {
                 val selected = (_uiState.value as? MapUiState.Success)?.selectedSuggestion
                 if (selected == null) {
-                    _uiState.update { MapUiState.Error("No location selected") }
+                    _uiState.update {
+                        MapUiState.Error(resourceAccessor.getString(R.string.map_error_no_location_selected))
+                    }
                     return
                 }
                 updateSuccess { state -> state.copy(isSaving = true) }
@@ -121,7 +126,11 @@ class MapViewModel @Inject constructor(
                     }.onSuccess {
                         updateSuccess { state -> state.copy(isSaving = false) }
                     }.onFailure { throwable ->
-                        _uiState.update { MapUiState.Error(throwable.message ?: "Failed to save location") }
+                        _uiState.update {
+                            MapUiState.Error(
+                                throwable.message ?: resourceAccessor.getString(R.string.map_error_save_location_failed)
+                            )
+                        }
                     }
                 }
             }
@@ -184,7 +193,12 @@ class MapViewModel @Inject constructor(
                                 currentBackground = R.drawable.image1,
                             )
                         } else {
-                            MapUiState.Error("Error selecting suggestion: ${result.error}")
+                            MapUiState.Error(
+                                resourceAccessor.getString(
+                                    R.string.map_error_select_suggestion_failed,
+                                    result.error?.toString().orEmpty(),
+                                )
+                            )
                         }
                     }
                 }

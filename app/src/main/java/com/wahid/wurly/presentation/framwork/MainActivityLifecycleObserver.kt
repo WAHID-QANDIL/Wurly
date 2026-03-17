@@ -4,7 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mapbox.android.core.permissions.PermissionsManager
-import com.wahid.wurly.presentation.framwork.location.LocationServiceProvider
+import com.wahid.wurly.data.location.LocationServiceProvider
 
 class MainActivityLifecycleObserver(private val context: Activity) : DefaultLifecycleObserver {
 

@@ -9,6 +9,7 @@ import com.wahid.wurly.domain.model.weather.WeatherUnit
 import com.wahid.wurly.domain.model.weather.WindUnit
 import com.wahid.wurly.domain.usecase.GetUserSettings
 import com.wahid.wurly.domain.usecase.UpdateUserSettings
+import com.wahid.wurly.utils.ResourceAccessor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val getUserSettings: GetUserSettings,
     private val updateUserSettings: UpdateUserSettings,
+    private val resourceAccessor: ResourceAccessor,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<SettingsUiState>(
@@ -30,7 +32,7 @@ class SettingsViewModel @Inject constructor(
             selectedTemperatureUnit = TemperatureUnit.Celsius,
             selectedWindSpeedUnit = WindSpeedUnit.Ms,
             selectedLanguage = AppLanguage.EN,
-            currentLanguageDisplayName = "English",
+            currentLanguageDisplayName = localizedLanguageName(AppLanguage.EN),
             currentBackground = R.drawable.image1,
         )
     )
@@ -54,17 +56,13 @@ class SettingsViewModel @Inject constructor(
                     SupportedLanguage.ARABIC.code -> AppLanguage.AR
                     else -> AppLanguage.EN
                 }
-                val languageDisplay = when (appLanguage) {
-                    AppLanguage.EN -> SupportedLanguage.ENGLISH.displayName
-                    AppLanguage.AR -> SupportedLanguage.ARABIC.displayName
-                }
 
                 updateSuccess {
                     it.copy(
                         selectedTemperatureUnit = tempUnit,
                         selectedWindSpeedUnit = windUnit,
                         selectedLanguage = appLanguage,
-                        currentLanguageDisplayName = languageDisplay,
+                        currentLanguageDisplayName = localizedLanguageName(appLanguage),
                     )
                 }
             }
@@ -95,14 +93,16 @@ class SettingsViewModel @Inject constructor(
                 updateSuccessPersist { ui ->
                     ui.copy(
                         selectedLanguage = event.language,
-                        currentLanguageDisplayName = when (event.language) {
-                            AppLanguage.EN -> SupportedLanguage.ENGLISH.displayName
-                            AppLanguage.AR -> SupportedLanguage.ARABIC.displayName
-                        },
+                        currentLanguageDisplayName = localizedLanguageName(event.language),
                     )
                 }
             }
         }
+    }
+
+    private fun localizedLanguageName(language: AppLanguage): String = when (language) {
+        AppLanguage.EN -> resourceAccessor.getString(R.string.settings_language_name_english)
+        AppLanguage.AR -> resourceAccessor.getString(R.string.settings_language_name_arabic)
     }
 
     private inline fun updateSuccess(

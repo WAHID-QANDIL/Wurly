@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -17,14 +16,13 @@ import com.wahid.wurly.presentation.common.ProvideUserSettings
 import com.wahid.wurly.presentation.framwork.MainActivityLifecycleObserver
 import com.wahid.wurly.presentation.navigation.AppNavigation
 import com.wahid.wurly.ui.theme.WurlyTheme
-import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 import com.wahid.wurly.utils.LocaleHelper
 import com.wahid.wurly.work.WeatherAlertScheduler
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         lifecycle.addObserver(MainActivityLifecycleObserver.getInstance(this))
@@ -34,10 +32,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             val appSettingsViewModel: AppSettingsViewModel = hiltViewModel()
             val userSettings by appSettingsViewModel.settings.collectAsStateWithLifecycle()
-            val composeContext = LocalContext.current
 
             LaunchedEffect(userSettings.language) {
-                LocaleHelper.applyAppLocale(composeContext, userSettings.language)
+                val targetLanguage = userSettings.language.lowercase(Locale.ROOT)
+                val currentLanguage = resources.configuration.locales[0]?.language
+                    ?: Locale.getDefault().language
+                if (currentLanguage != targetLanguage) {
+                    LocaleHelper.applyAppLocale(this@MainActivity, userSettings.language)
+                    recreate()
+                }
             }
 
             val layoutDirection = when (userSettings.language.uppercase(Locale.ROOT)) {

@@ -8,6 +8,7 @@ import com.wahid.wurly.R
 import com.wahid.wurly.domain.usecase.GetCityForecastById
 import com.wahid.wurly.domain.usecase.GetNextForecastDays
 import com.wahid.wurly.presentation.common.model.ForecastDayItem
+import com.wahid.wurly.utils.ResourceAccessor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class ForecastViewModel @Inject constructor(
     private val getNextForecastDays: GetNextForecastDays,
     private val getCityForecastById: GetCityForecastById,
+    private val resourceAccessor: ResourceAccessor,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -89,19 +91,21 @@ class ForecastViewModel @Inject constructor(
                     )
                 }
                 .onFailure { throwable ->
-                    _uiState.value = ForecastUiState.Error(throwable.message ?: "Error")
+                    _uiState.value = ForecastUiState.Error(
+                        throwable.message ?: resourceAccessor.getString(R.string.error_generic)
+                    )
                 }
         }
     }
 
     private fun Long.toDayName(zoneId: ZoneId = ZoneId.of("UTC")): String {
         val localDate = Instant.ofEpochSecond(this).atZone(zoneId).toLocalDate()
-        val formatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
+        val formatter = DateTimeFormatter.ofPattern("EEEE", Locale.getDefault())
         return localDate.format(formatter)
     }
 
-    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
 
     private fun formatDate(epochSeconds: Long): String =
         Instant.ofEpochSecond(epochSeconds).atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)

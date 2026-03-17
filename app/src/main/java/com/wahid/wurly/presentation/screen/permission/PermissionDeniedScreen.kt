@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.wahid.wurly.R
 
 /**
  * Shown when the user denied location permission (including permanently denied cases).
@@ -28,18 +30,18 @@ fun PermissionDeniedScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Location permission is required to continue.",
+            text = stringResource(R.string.permission_denied_title),
             style = MaterialTheme.typography.titleMedium
         )
         Text(
-            text = "Enable it in settings to see weather for your area.",
+            text = stringResource(R.string.permission_denied_message),
             style = MaterialTheme.typography.bodyMedium
         )
         Button(onClick = onOpenSettings) {
-            Text(text = "Open settings")
+            Text(text = stringResource(R.string.permission_open_settings))
         }
         Button(onClick = onDismiss) {
-            Text(text = "Cancel")
+            Text(text = stringResource(R.string.permission_cancel))
         }
     }
 }

@@ -21,6 +21,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mrtdk.glass.GlassContainer
 import com.wahid.wurly.R
 import com.wahid.wurly.presentation.screen.alerts.component.NavItem
 import com.wahid.wurly.presentation.screen.home.component.WeatherBottomNav
@@ -102,11 +103,15 @@ fun AppNavigation(
 
     val cornerRadius = dimensionResource(R.dimen.weather_detail_card_corner_radius)
 
-    Box(modifier = modifier.fillMaxSize()) {
-        NavGraph(
-            navHostController = navHostController,
-            modifier = Modifier.fillMaxSize(),
-        )
+    GlassContainer(
+        modifier = modifier.fillMaxSize(),
+        content = {
+            NavGraph(
+                navHostController = navHostController,
+                modifier = Modifier.fillMaxSize(),
+            )
+        },
+    ) {
         WeatherBottomNav(
             modifier = Modifier
                 .align(Alignment.BottomCenter)

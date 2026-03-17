@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -19,12 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.mrtdk.glass.GlassBox
+import com.mrtdk.glass.GlassBoxScope
 import com.wahid.wurly.R
 import com.wahid.wurly.presentation.screen.alerts.component.NavItem
 
@@ -34,32 +37,42 @@ import com.wahid.wurly.presentation.screen.alerts.component.NavItem
  * Stateless — selection state and click events are fully hoisted.
  */
 @Composable
-fun WeatherBottomNav(
+fun GlassBoxScope.WeatherBottomNav(
     modifier: Modifier = Modifier,
     items: List<NavItem>,
     onItemClick: (index: Int) -> Unit,
 ) {
-    Row(
+    val navHeight = dimensionResource(R.dimen.weather_nav_height)
+    val navShape = RoundedCornerShape(dimensionResource(R.dimen.weather_detail_card_corner_radius))
+
+    GlassBox(
+        scale = 0.88f,
+        darkness = 0.55f,
+        shape = navShape,
         modifier = modifier
             .fillMaxWidth()
-            .height(dimensionResource(R.dimen.weather_nav_height))
-            .clip(
-                RoundedCornerShape(dimensionResource(R.dimen.weather_detail_card_corner_radius))
-            ),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(10.dp)
+            .height(navHeight),
     ) {
-        items.forEachIndexed { index, item ->
-            WeatherNavItem(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
-                icon = item.icon,
-                label = stringResource(item.labelRes),
-                contentDescription = stringResource(item.contentDescriptionRes),
-                isSelected = item.isSelected,
-                onClick = { onItemClick(index) },
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(navHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            items.forEachIndexed { index, item ->
+                WeatherNavItem(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    icon = item.icon,
+                    label = stringResource(item.labelRes),
+                    contentDescription = stringResource(item.contentDescriptionRes),
+                    isSelected = item.isSelected,
+                    onClick = { onItemClick(index) },
+                )
+            }
         }
     }
 }
@@ -76,9 +89,13 @@ private fun WeatherNavItem(
     isSelected: Boolean,
     onClick: () -> Unit,
 ) {
-    val tint = if (isSelected) MaterialTheme.colorScheme.primary else Color.White.copy(alpha = 0.5f)
+    val tint =
+        if (isSelected) MaterialTheme.colorScheme.secondary else Color.White.copy(alpha = 0.5f)
     val labelColor =
-        if (isSelected) MaterialTheme.colorScheme.primary else Color.White.copy(alpha = 0.5f)
+        if (isSelected) MaterialTheme.colorScheme.secondary else Color.White.copy(alpha = 0.5f)
+    val rippleColor =
+        if (isSelected) MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f)
+        else Color.White.copy(alpha = 0.28f)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -86,7 +103,7 @@ private fun WeatherNavItem(
         modifier = modifier.clickable(
             onClick = onClick,
             interactionSource = remember { MutableInteractionSource() },
-            indication = ripple(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.5f)),
+            indication = ripple(color = rippleColor),
         )
     ) {
         Icon(

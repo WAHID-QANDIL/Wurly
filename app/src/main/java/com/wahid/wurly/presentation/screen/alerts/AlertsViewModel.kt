@@ -12,15 +12,16 @@ import com.wahid.wurly.domain.usecase.alerts.DeleteAlert
 import com.wahid.wurly.domain.usecase.alerts.GetAlerts
 import com.wahid.wurly.domain.usecase.alerts.UpsertAlert
 import com.wahid.wurly.presentation.common.model.WeatherAlertItem
-import com.wahid.wurly.presentation.screen.alerts.AlertStyle
 import com.wahid.wurly.work.WeatherAlertScheduler
 import com.wahid.wurly.domain.repository.SettingsRepository
+import com.wahid.wurly.utils.ResourceAccessor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
@@ -36,6 +37,7 @@ class AlertsViewModel @Inject constructor(
     private val upsertAlert: UpsertAlert,
     private val deleteAlert: DeleteAlert,
     private val settingsRepository: SettingsRepository,
+    private val resourceAccessor: ResourceAccessor,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<AlertsUiState>(
@@ -59,18 +61,19 @@ class AlertsViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            getAlerts().collectLatest { alerts ->
-                val items = alerts.map { alert ->
-                    WeatherAlertItem(
-                        id = alert.id.toString(),
-                        title = alert.alertCase.toTitle(),
-                        description = alert.toDescription(),
-                        icon = alert.alertCase.toIcon(),
-                        timestamp = formatTimestamp(alert.createdAt),
-                    )
+            combine(getAlerts(), settingsRepository.getUserSettings()) { alerts, _ -> alerts }
+                .collectLatest { alerts ->
+                    val items = alerts.map { alert ->
+                        WeatherAlertItem(
+                            id = alert.id.toString(),
+                            title = alert.alertCase.toTitle(),
+                            description = alert.toDescription(),
+                            icon = alert.alertCase.toIcon(),
+                            timestamp = formatTimestamp(alert.createdAt),
+                        )
+                    }
+                    updateSuccess { it.copy(activeAlerts = items) }
                 }
-                updateSuccess { it.copy(activeAlerts = items) }
-            }
         }
     }
 
@@ -179,17 +182,20 @@ class AlertsViewModel @Inject constructor(
     }
 
     private fun AlertCase.toTitle(): String = when (this) {
-        AlertCase.Storm -> "Storm warning"
-        AlertCase.HeatAdvisory -> "Heat advisory"
-        AlertCase.FlashFloodWatch -> "Flash flood watch"
-        AlertCase.CustomTemperature -> "Custom temperature"
+        AlertCase.Storm -> resourceAccessor.getString(R.string.alerts_case_storm)
+        AlertCase.HeatAdvisory -> resourceAccessor.getString(R.string.alerts_case_heat)
+        AlertCase.FlashFloodWatch -> resourceAccessor.getString(R.string.alerts_case_flood)
+        AlertCase.CustomTemperature -> resourceAccessor.getString(R.string.alerts_case_custom_temperature)
     }
 
     private fun com.wahid.wurly.domain.model.weather.WeatherAlert.toDescription(): String = when (this.alertCase) {
-        AlertCase.Storm -> "Storm or thunder conditions detected"
-        AlertCase.HeatAdvisory -> "High temperature risk"
-        AlertCase.FlashFloodWatch -> "Heavy rain or flood risk"
-        AlertCase.CustomTemperature -> "Trigger above: ${this.targetTemperature ?: 0}°"
+        AlertCase.Storm -> resourceAccessor.getString(R.string.alerts_desc_storm_detected)
+        AlertCase.HeatAdvisory -> resourceAccessor.getString(R.string.alerts_desc_heat_risk)
+        AlertCase.FlashFloodWatch -> resourceAccessor.getString(R.string.alerts_desc_flood_risk)
+        AlertCase.CustomTemperature -> resourceAccessor.getString(
+            R.string.alerts_custom_temperature_trigger,
+            this.targetTemperature ?: 0,
+        )
     }
 
     private fun AlertCase.toIcon() = when (this) {

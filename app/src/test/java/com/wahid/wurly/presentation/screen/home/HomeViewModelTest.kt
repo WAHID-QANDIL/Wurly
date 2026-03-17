@@ -11,7 +11,7 @@ import com.wahid.wurly.domain.model.weather.Weather
 import com.wahid.wurly.domain.usecase.GetCurrentWeather
 import com.wahid.wurly.domain.usecase.GetDayForecast
 import com.wahid.wurly.domain.usecase.SettingsUseCases
-import com.wahid.wurly.presentation.framwork.location.LocationServiceProvider
+import com.wahid.wurly.data.location.LocationServiceProvider
 import com.wahid.wurly.utils.MainDispatcherRule
 import com.wahid.wurly.utils.ResourceAccessor
 import io.mockk.coEvery

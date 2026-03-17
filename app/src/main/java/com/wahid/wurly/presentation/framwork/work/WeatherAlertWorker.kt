@@ -13,7 +13,7 @@ import androidx.work.WorkerParameters
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.wahid.wurly.presentation.screen.alerts.AlertCase
-import com.wahid.wurly.presentation.framwork.location.LocationServiceProvider
+import com.wahid.wurly.data.location.LocationServiceProvider
 import com.wahid.wurly.domain.repository.WeatherRepository
 import com.wahid.wurly.presentation.screen.alerts.AlertStyle
 import dagger.assisted.Assisted

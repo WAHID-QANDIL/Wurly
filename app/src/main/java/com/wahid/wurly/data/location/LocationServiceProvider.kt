@@ -1,4 +1,4 @@
-package com.wahid.wurly.presentation.framwork.location
+package com.wahid.wurly.data.location
 
 import android.util.Log
 import com.mapbox.common.location.AccuracyLevel
