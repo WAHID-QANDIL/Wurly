@@ -51,6 +51,12 @@ android {
         buildConfig = true
     }
 
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE.md,LICENSE-notice.md}"
+        }
+    }
+
 
 }
 
@@ -138,6 +144,12 @@ dependencies {
 
     //Coroutines
     testImplementation(libs.kotlinx.coroutines.test)
+    
+    //MockK and Turbine
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.turbine)
 
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
