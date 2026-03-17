@@ -1,6 +1,5 @@
 package com.wahid.wurly.presentation.common.model
 
-import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
  * Represents a compact forecast entry (e.g., hourly) for display in a horizontal card row.

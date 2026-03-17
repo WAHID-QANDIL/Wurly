@@ -30,25 +30,11 @@ import com.wahid.wurly.R
 fun FavoritesTopBar(
     modifier: Modifier = Modifier,
     title: String = stringResource(R.string.favorites_title),
-    onBackClick: () -> Unit,
-    onSearchClick: () -> Unit,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(
-            onClick = onBackClick,
-            modifier = Modifier.size(dimensionResource(R.dimen.weather_back_button_size)),
-            colors = IconButtonDefaults.iconButtonColors(
-                contentColor = Color.White,
-            ),
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = stringResource(R.string.weather_back_button_cd),
-            )
-        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -62,18 +48,5 @@ fun FavoritesTopBar(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-
-        IconButton(
-            onClick = onSearchClick,
-            modifier = Modifier.size(dimensionResource(R.dimen.weather_back_button_size)),
-            colors = IconButtonDefaults.iconButtonColors(
-                contentColor = Color.White,
-            ),
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = stringResource(R.string.favorites_search_cd),
-            )
-        }
     }
 }

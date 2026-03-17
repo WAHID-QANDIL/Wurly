@@ -1,6 +1,5 @@
 package com.wahid.wurly.presentation.screen.favorites
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,15 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Cloud
-import androidx.compose.material.icons.outlined.WaterDrop
-import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,20 +21,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import com.mrtdk.glass.GlassContainer
 import com.wahid.wurly.R
 import com.wahid.wurly.presentation.common.rememberCachedBackgroundPainter
-import com.wahid.wurly.presentation.common.model.FavoriteLocationItem
 import com.wahid.wurly.presentation.screen.favorites.component.FavoriteLocationCard
 import com.wahid.wurly.presentation.screen.favorites.component.FavoritesTopBar
-import com.wahid.wurly.ui.theme.WurlyTheme
 
 @Composable
 fun FavoritesScreen(
     modifier: Modifier = Modifier,
     uiState: FavoritesUiState = FavoritesUiState.Loading,
-    onEvent: (FavoritesUiEvent) -> Unit,
+    onFavoriteClick: (Long) -> Unit,
+    onRemoveFavorite: (String) -> Unit,
 ) {
     when (uiState) {
         is FavoritesUiState.Loading -> {
@@ -66,7 +55,8 @@ fun FavoritesScreen(
             FavoritesContent(
                 modifier = modifier,
                 state = uiState,
-                onEvent = onEvent,
+                onFavoriteClick = onFavoriteClick,
+                onRemoveFavorite = onRemoveFavorite,
             )
         }
     }
@@ -77,7 +67,8 @@ fun FavoritesScreen(
 private fun FavoritesContent(
     modifier: Modifier = Modifier,
     state: FavoritesUiState.Success,
-    onEvent: (FavoritesUiEvent) -> Unit,
+    onFavoriteClick: (Long) -> Unit,
+    onRemoveFavorite: (String) -> Unit,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.weather_screen_horizontal_padding)
     val topPadding = dimensionResource(R.dimen.weather_screen_top_padding)
@@ -123,8 +114,6 @@ private fun FavoritesContent(
                 item(key = "top_bar") {
                     FavoritesTopBar(
                         modifier = Modifier.fillMaxWidth(),
-                        onBackClick = { onEvent(FavoritesUiEvent.OnBackClick) },
-                        onSearchClick = { onEvent(FavoritesUiEvent.OnSearchClick) },
                     )
                     Spacer(modifier = Modifier.height(listTopSpacing))
                 }
@@ -139,9 +128,11 @@ private fun FavoritesContent(
                             temperature = item.temperature,
                             condition = item.condition,
                             conditionIcon = item.conditionIcon,
-                            previewImageRes = item.previewImage,
+                            date = item.date,
+                            time = item.time,
+                            onClick = { onFavoriteClick(item.id.toLong()) },
                             onRemoveClick = {
-                                onEvent(FavoritesUiEvent.OnRemoveFavorite(item.id))
+                                onRemoveFavorite(item.id)
                             },
                         )
                     }
@@ -151,95 +142,6 @@ private fun FavoritesContent(
                     Spacer(modifier = Modifier.height(navHeight))
                 }
             }
-
-            FloatingActionButton(
-                onClick = { onEvent(FavoritesUiEvent.OnAddFavoriteClick) },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(end = fabMargin, bottom = navHeight + fabMargin),
-                shape = CircleShape,
-                containerColor = MaterialTheme.colorScheme.secondary,
-                contentColor = Color.White,
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Add,
-                    contentDescription = stringResource(R.string.favorites_add_cd),
-                )
-            }
-        }
-    }
-}
-
-
-private fun previewFavorites() = listOf(
-    FavoriteLocationItem(
-        id = "1",
-        cityName = "London, UK",
-        temperature = "18°C",
-        condition = "Cloudy",
-        conditionIcon = Icons.Outlined.Cloud,
-        previewImage = R.drawable.image1,
-    ),
-    FavoriteLocationItem(
-        id = "2",
-        cityName = "New York, USA",
-        temperature = "24°C",
-        condition = "Sunny",
-        conditionIcon = Icons.Outlined.WbSunny,
-        previewImage = R.drawable.image,
-    ),
-    FavoriteLocationItem(
-        id = "3",
-        cityName = "Tokyo, Japan",
-        temperature = "21°C",
-        condition = "Clear",
-        conditionIcon = Icons.Outlined.WbSunny,
-        previewImage = R.drawable.image1,
-    ),
-    FavoriteLocationItem(
-        id = "4",
-        cityName = "Paris, France",
-        temperature = "16°C",
-        condition = "Light Rain",
-        conditionIcon = Icons.Outlined.WaterDrop,
-        previewImage = R.drawable.image,
-    ),
-)
-
-@Preview(
-    name = "Favorites – Light",
-    showBackground = true,
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Composable
-private fun FavoritesScreenLightPreview() {
-    WurlyTheme {
-        FavoritesScreen(
-            uiState = FavoritesUiState.Success(
-                favorites = previewFavorites(),
-                currentBackground = R.drawable.image,
-            ),
-            onEvent = {},
-        )
-    }
-}
-
-@Preview(
-    name = "Favorites – Dark",
-    showBackground = true,
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
-@Composable
-private fun FavoritesScreenDarkPreview() {
-    WurlyTheme {
-        FavoritesScreen(
-            uiState = FavoritesUiState.Success(
-                favorites = previewFavorites(),
-                currentBackground = R.drawable.image,
-            ),
-            onEvent = {},
-        )
-    }
-}
+         }
+     }
+ }
