@@ -80,12 +80,24 @@ class WeatherDaoTest {
     fun observeLatestForecast_returnsMostRecentAddedCity() = runTest {
         val city1 = City(1L, false, Coordinates(0.0, 0.0), "C1", "City1", 0, 0, 0, 0)
         val city2 = City(2L, false, Coordinates(0.0, 0.0), "C2", "City2", 0, 0, 0, 0)
-        
+
         dao.upsertCity(city1)
         dao.upsertCity(city2)
 
         val latest = dao.observeLatestForecast().first()
         assertNotNull(latest)
         assertEquals(2L, latest?.city?.id)
+    }
+
+    @Test
+    fun getAllCities_returnsInsertedCities() = runTest {
+        val city1 = City(1L, false, Coordinates(0.0, 0.0), "C1", "City1", 0, 0, 0, 0)
+        val city2 = City(2L, false, Coordinates(1.0, 1.0), "C2", "City2", 0, 0, 0, 0)
+
+        dao.upsertCity(city1)
+        dao.upsertCity(city2)
+
+        val all = dao.getAllCities().first()
+        assertEquals(2, all.size)
     }
 }
