@@ -43,7 +43,7 @@ import com.wahid.wurly.ui.theme.WurlyTheme
 fun ForecastScreen(
     modifier: Modifier = Modifier,
     uiState: ForecastUiState = ForecastUiState.Loading,
-    onEvent: (ForecastUiEvent) -> Unit,
+    onEvent: () -> Unit,
     onBackClick: () -> Unit,
 
 ) {
@@ -90,7 +90,7 @@ fun ForecastScreen(
 private fun ForecastContent(
     modifier: Modifier = Modifier,
     state: ForecastUiState.Success,
-    onEvent: (ForecastUiEvent) -> Unit,
+    onEvent: () -> Unit,
     onBackClick: () -> Unit,
 ) {
     val horizontalPadding = dimensionResource(R.dimen.weather_screen_horizontal_padding)
@@ -124,7 +124,7 @@ private fun ForecastContent(
                 ForecastTopBar(
                     modifier = Modifier.fillMaxWidth(),
                     onBackClick = onBackClick,
-                    onOverflowClick = { onEvent(ForecastUiEvent.OnOverflowClick) },
+                    onOverflowClick = { },
                 )
                 Spacer(modifier = Modifier.height(listTopSpacing))
             }

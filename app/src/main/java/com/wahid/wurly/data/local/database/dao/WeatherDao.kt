@@ -32,6 +32,10 @@ interface WeatherDao {
     fun observeLatestForecast(): Flow<ForecastDayWeather?>
 
     @Transaction
+    @Query("SELECT * FROM city")
+    fun getAllCities(): Flow<List<City>>
+
+    @Transaction
     @Query("SELECT * FROM city WHERE isFavorite = 1")
     fun getFavoriteCities(): Flow<List<City>>
 

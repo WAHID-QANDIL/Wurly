@@ -42,10 +42,6 @@ import com.wahid.wurly.presentation.screen.settings.component.SettingsToggleRow
 import com.wahid.wurly.presentation.screen.settings.component.SettingsTopBar
 import com.wahid.wurly.ui.theme.WurlyTheme
 
-// ─────────────────────────────────────────────────────────────
-// Screen-level composable (interacts with ViewModel)
-// ─────────────────────────────────────────────────────────────
-
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
@@ -79,10 +75,6 @@ fun SettingsScreen(
     }
 }
 
-// ─────────────────────────────────────────────────────────────
-// Stateless UI content composable
-// ─────────────────────────────────────────────────────────────
-
 @Composable
 private fun SettingsContent(
     modifier: Modifier = Modifier,
@@ -115,27 +107,24 @@ private fun SettingsContent(
                 .padding(top = topPadding),
             verticalArrangement = Arrangement.spacedBy(sectionSpacing),
         ) {
-            // ── Top Bar ──
             item(key = "top_bar") {
                 SettingsTopBar(
                     modifier = Modifier.fillMaxWidth(),
-                    onBackClick = { onEvent(SettingsUiEvent.OnBackClick) },
+                    onBackClick = {  },
                 )
                 Spacer(modifier = Modifier.height(listTopSpacing))
             }
 
-            // ── Location Section ──
             item(key = "location_section") {
                 with(glassScope) {
                     LocationSection(
                         useGps = state.useGps,
                         onToggleGps = { onEvent(SettingsUiEvent.OnToggleGps(it)) },
-                        onSelectFromMap = { onEvent(SettingsUiEvent.OnSelectFromMap) },
+                        onSelectFromMap = {  },
                     )
                 }
             }
 
-            // ── Units Section ──
             item(key = "units_section") {
                 with(glassScope) {
                     UnitsSection(
@@ -151,7 +140,6 @@ private fun SettingsContent(
                 }
             }
 
-            // ── Language Section ──
             item(key = "language_section") {
                 with(glassScope) {
                     LanguageSection(
@@ -164,17 +152,12 @@ private fun SettingsContent(
                 }
             }
 
-            // Bottom spacer so content isn't hidden behind the nav bar
             item(key = "bottom_spacer") {
                 Spacer(modifier = Modifier.height(navHeight))
             }
         }
     }
 }
-
-// ─────────────────────────────────────────────────────────────
-// Section composables (each in a GlassBox card)
-// ─────────────────────────────────────────────────────────────
 
 @Composable
 private fun GlassBoxScope.LocationSection(
@@ -275,7 +258,6 @@ private fun GlassBoxScope.UnitsSection(
 
             Spacer(modifier = Modifier.height(sectionTitleSpacing))
 
-            // Temperature
             Text(
                 text = stringResource(R.string.settings_temperature),
                 style = MaterialTheme.typography.bodySmall,
@@ -292,7 +274,7 @@ private fun GlassBoxScope.UnitsSection(
 
             Spacer(modifier = Modifier.height(sectionTitleSpacing))
 
-            // Wind Speed
+
             Text(
                 text = stringResource(R.string.settings_wind_speed),
                 style = MaterialTheme.typography.bodySmall,
@@ -363,10 +345,6 @@ private fun GlassBoxScope.LanguageSection(
         }
     }
 }
-
-// ─────────────────────────────────────────────────────────────
-// Previews
-// ─────────────────────────────────────────────────────────────
 
 private fun previewState() = SettingsUiState.Success(
     useGps = true,

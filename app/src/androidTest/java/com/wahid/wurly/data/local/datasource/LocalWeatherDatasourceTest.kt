@@ -42,4 +42,13 @@ class LocalWeatherDatasourceTest {
         val result = datasource.observeLatestForecast().first()
         assertEquals("Name", result?.city?.name)
     }
+
+    @Test
+    fun datasource_getAllCities_returnsInsertedCities() = runTest {
+        datasource.upsertCity(City(1L, false, Coordinates(0.0, 0.0), "Country", "Name1", 0, 0, 0, 0))
+        datasource.upsertCity(City(2L, false, Coordinates(1.0, 1.0), "Country", "Name2", 0, 0, 0, 0))
+
+        val result = datasource.getAllCities().first()
+        assertEquals(2, result.size)
+    }
 }

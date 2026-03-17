@@ -76,7 +76,6 @@ class AlertsViewModel @Inject constructor(
 
     fun onEvent(event: AlertsUiEvent) {
         when (event) {
-            is AlertsUiEvent.OnBackClick -> { /* Handle navigation back */ }
 
             is AlertsUiEvent.OnOpenAddAlertSheet -> {
                 updateSuccess { it.copy(showAddAlertSheet = true) }
@@ -125,7 +124,6 @@ class AlertsViewModel @Inject constructor(
                     )
                 }
 
-                // Dismiss the sheet and reset pending selections for next use
                 updateSuccess {
                     it.copy(
                         showAddAlertSheet = false,
@@ -163,8 +161,6 @@ class AlertsViewModel @Inject constructor(
                     WeatherAlertScheduler.cancel(appContext)
                 }
             }
-
-            is AlertsUiEvent.OnNavItemClick -> { /* Handle nav item click */ }
         }
     }
 

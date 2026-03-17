@@ -322,27 +322,6 @@ private fun GlassBoxScope.MapSection(
                 }
             }
         }
-
-        /*if (selectedSuggestion != null) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .clip(RoundedCornerShape(pickLabelCorner))
-                    .background(Color.White)
-                    .padding(
-                        horizontal = pickLabelHorizontalPadding,
-                        vertical = pickLabelVerticalPadding,
-                    ),
-            ) {
-                Text(
-                    text = stringResource(R.string.add_favorite_pick_this_location),
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
-                    color = Color.Black,
-                )
-            }
-        }*/
     }
 }
 

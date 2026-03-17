@@ -43,19 +43,6 @@ class ForecastViewModel @Inject constructor(
         }
     }
 
-    fun onEvent(event: ForecastUiEvent) {
-        when (event) {
-            is ForecastUiEvent.OnBackClick -> { /* Handle navigation back */
-            }
-
-            is ForecastUiEvent.OnOverflowClick -> { /* Handle overflow menu */
-            }
-
-            is ForecastUiEvent.OnNavItemClick -> { /* Handle nav item click */
-            }
-        }
-    }
-
     private fun loadForecast() {
         viewModelScope.launch {
             getNextForecastDays().collect { days ->

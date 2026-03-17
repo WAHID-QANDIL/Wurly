@@ -39,11 +39,8 @@ sealed interface SettingsUiState {
  * One-shot events emitted from the Settings screen UI.
  */
 sealed interface SettingsUiEvent {
-    data object OnBackClick : SettingsUiEvent
     data class OnToggleGps(val enabled: Boolean) : SettingsUiEvent
-    data object OnSelectFromMap : SettingsUiEvent
     data class OnTemperatureUnitChange(val unit: TemperatureUnit) : SettingsUiEvent
     data class OnWindSpeedUnitChange(val unit: WindSpeedUnit) : SettingsUiEvent
     data class OnLanguageChange(val language: AppLanguage) : SettingsUiEvent
-    data class OnNavItemClick(val index: Int) : SettingsUiEvent
 }

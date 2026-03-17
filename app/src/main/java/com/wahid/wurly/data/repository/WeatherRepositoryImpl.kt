@@ -35,6 +35,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 class WeatherRepositoryImpl @Inject constructor(
     private val localDatasource: LocalWeatherDatasource,
@@ -43,20 +49,23 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
     companion object {
         private const val TAG = "WeatherRepositoryImpl"
+        private const val CACHE_MATCH_DISTANCE_KM = 50.0
+        private const val EARTH_RADIUS_KM = 6371.0
     }
 
 
     override suspend fun getCurrentDayWeather(filters: Map<String, String>): Flow<DayWeather> =
         flow {
             val settings = localDataStore.userSettings.first()
+            val requestLat = filters["lat"]?.toDoubleOrNull()
+            val requestLon = filters["lon"]?.toDoubleOrNull()
             if (settings.isCached) {
-                // If cached, pull the current conditions from the local forecast database
-                val cachedForecast = localDatasource.observeLatestForecast().firstOrNull()
+                val cachedForecast = findClosestCityForecast(requestLat, requestLon)
                 if (cachedForecast != null && cachedForecast.dayWeatherList.isNotEmpty()) {
                     val nowSeconds = System.currentTimeMillis() / 1000
-                    // Find the single forecasting block that is chronologically closest to right now
+                    // Find the single forecasting block that is chronologically closest to right now.
                     val closestWeather = cachedForecast.dayWeatherList.minByOrNull {
-                        kotlin.math.abs(it.dayTime - nowSeconds)
+                        abs(it.dayTime - nowSeconds)
                     } ?: cachedForecast.dayWeatherList.first()
 
                     val sysMapper = com.wahid.wurly.data.remote.api.dto.model.dayweather.Sys(
@@ -68,13 +77,13 @@ class WeatherRepositoryImpl @Inject constructor(
                     return@flow
                 }
             }
-            
+
             // Fallback to fetching remotely if not cached yet
             val dayWeather = remoteWeatherDatasource
                 .getCurrentWeather(weatherInfo = filters)
                 .getOrThrow()
             emit(dayWeather.toDomainDayWeather())
-            
+
         }.catch { throw it.toCustomRemoteExceptionDomainModel() }
 
     override suspend fun getForecastDaysWeather(
@@ -84,7 +93,9 @@ class WeatherRepositoryImpl @Inject constructor(
     ): Flow<ForecastDays> =
         flow {
             val settings = localDataStore.userSettings.first()
-            val cached = localDatasource.observeLatestForecast().firstOrNull()
+            val requestLat = filters["lat"]?.toDoubleOrNull()
+            val requestLon = filters["lon"]?.toDoubleOrNull()
+            val cached = findClosestCityForecast(requestLat, requestLon)
             val shouldRefresh = forceRefresh || isFavorite || !settings.isCached || cached == null
 
             val cityId = if (shouldRefresh) {
@@ -95,7 +106,7 @@ class WeatherRepositoryImpl @Inject constructor(
                 localDataStore.setSettings(settings.copy(isCached = true))
                 id
             } else {
-                cached.city.id
+                requireNotNull(cached).city.id
             }
 
             emitAll(
@@ -116,7 +127,6 @@ class WeatherRepositoryImpl @Inject constructor(
         filters: Map<String, String>,
         isFavorite: Boolean
     ): Flow<List<DayWeather>> {
-        // reuse forecast fetch/cache path, then derive 5-day buckets for list UI
         return getForecastDaysWeather(filters, isFavorite).map { it.toFiveDaySummaries().list }
     }
 
@@ -191,6 +201,49 @@ class WeatherRepositoryImpl @Inject constructor(
         localDatasource.upsertCity(city = cityEntity)
         localDatasource.upsertDayWeather(dayWeather = dayWeatherEntities)
         return cityEntity.id
+    }
+
+    private suspend fun findClosestCityForecast(
+        latitude: Double?,
+        longitude: Double?
+    ): ForecastEntity? {
+        if (latitude == null || longitude == null) return null
+
+        val cities = localDatasource.getAllCities().firstOrNull().orEmpty()
+        if (cities.isEmpty()) return null
+
+        val closestCity = cities.minByOrNull { city ->
+            distanceInKm(
+                fromLat = latitude,
+                fromLon = longitude,
+                toLat = city.coordinates.latitude,
+                toLon = city.coordinates.longitude
+            )
+        } ?: return null
+
+        val distance = distanceInKm(
+            fromLat = latitude,
+            fromLon = longitude,
+            toLat = closestCity.coordinates.latitude,
+            toLon = closestCity.coordinates.longitude
+        )
+        if (distance > CACHE_MATCH_DISTANCE_KM) return null
+
+        return localDatasource.observeForecastByCityId(cityId = closestCity.id).firstOrNull()
+    }
+
+    private fun distanceInKm(
+        fromLat: Double,
+        fromLon: Double,
+        toLat: Double,
+        toLon: Double
+    ): Double {
+        val latDistance = Math.toRadians(toLat - fromLat)
+        val lonDistance = Math.toRadians(toLon - fromLon)
+        val a = sin(latDistance / 2).pow(2) +
+            cos(Math.toRadians(fromLat)) * cos(Math.toRadians(toLat)) * sin(lonDistance / 2).pow(2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return EARTH_RADIUS_KM * c
     }
 }
 

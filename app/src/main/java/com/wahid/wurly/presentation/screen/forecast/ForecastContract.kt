@@ -16,12 +16,3 @@ sealed interface ForecastUiState {
 
     data class Error(val message: String) : ForecastUiState
 }
-
-/**
- * One-shot events emitted from the 7-Day Forecast screen UI.
- */
-sealed interface ForecastUiEvent {
-    data object OnBackClick : ForecastUiEvent
-    data object OnOverflowClick : ForecastUiEvent
-    data class OnNavItemClick(val index: Int) : ForecastUiEvent
-}

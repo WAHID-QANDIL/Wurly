@@ -143,7 +143,7 @@ private fun AlertsContent(
                 SettingsTopBar(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.alerts_title),
-                    onBackClick = { onEvent(AlertsUiEvent.OnBackClick) },
+                    onBackClick = {},
                 )
             }
 
@@ -219,9 +219,6 @@ private fun AlertsContent(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Alerts Enabled section (global toggle on main screen)
-// ---------------------------------------------------------------------------
 
 @Composable
 private fun GlassBoxScope.AlertsEnabledSection(
@@ -250,10 +247,6 @@ private fun GlassBoxScope.AlertsEnabledSection(
     }
 }
 
-// ---------------------------------------------------------------------------
-// Add Alert bottom-sheet
-// ---------------------------------------------------------------------------
-
 @Composable
 private fun AddAlertBottomSheet(
     modifier: Modifier = Modifier,
@@ -267,14 +260,12 @@ private fun AddAlertBottomSheet(
     val sectionSpacing = dimensionResource(R.dimen.alerts_section_spacing)
     val iconSpacing = dimensionResource(R.dimen.alerts_row_icon_spacing)
 
-    // Duration options
     val durationOptions = listOf(
         SegmentedOption(AlertDuration.OneHour, stringResource(R.string.alerts_duration_1h)),
         SegmentedOption(AlertDuration.SixHours, stringResource(R.string.alerts_duration_6h)),
         SegmentedOption(AlertDuration.TwentyFourHours, stringResource(R.string.alerts_duration_24h)),
     )
 
-    // Alert case options (icon, label, case)
     val caseOptions = listOf(
         Triple(Icons.Filled.Warning, stringResource(R.string.alerts_case_storm), AlertCase.Storm),
         Triple(Icons.Filled.Thermostat, stringResource(R.string.alerts_case_heat), AlertCase.HeatAdvisory),
@@ -290,7 +281,6 @@ private fun AddAlertBottomSheet(
         verticalArrangement = Arrangement.spacedBy(sectionSpacing),
     ) {
 
-        // ── Alert Type ──────────────────────────────────────────────────────
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -340,7 +330,6 @@ private fun AddAlertBottomSheet(
 
         Spacer(modifier = Modifier.height(sectionSpacing))
 
-        // ── Active Duration ─────────────────────────────────────────────────
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -367,7 +356,6 @@ private fun AddAlertBottomSheet(
 
         Spacer(modifier = Modifier.height(sectionSpacing))
 
-        // ── Notification Style ──────────────────────────────────────────────
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -408,7 +396,6 @@ private fun AddAlertBottomSheet(
 
         Spacer(modifier = Modifier.height(sectionSpacing))
 
-        // ── Confirm Button ──────────────────────────────────────────────────
         Button(
             onClick = { onEvent(AlertsUiEvent.OnConfirmAddAlert) },
             modifier = Modifier

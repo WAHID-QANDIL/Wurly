@@ -15,7 +15,7 @@ fun NavGraphBuilder.forecast(
 
         ForecastScreen(
             uiState = uiState.value,
-            onEvent = viewModel::onEvent, onBackClick = onBackClick
+            onEvent = { }, onBackClick = onBackClick
         )
     }
 }

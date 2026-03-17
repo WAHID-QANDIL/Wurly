@@ -73,10 +73,6 @@ class SettingsViewModel @Inject constructor(
 
     fun onEvent(event: SettingsUiEvent) {
         when (event) {
-            is SettingsUiEvent.OnBackClick -> { /* Handle navigation back */ }
-            is SettingsUiEvent.OnSelectFromMap -> { /* Handle map selection */ }
-            is SettingsUiEvent.OnNavItemClick -> { /* Handle nav item click */ }
-
             is SettingsUiEvent.OnToggleGps -> {
                 updateSuccessPersist { ui ->
                     ui.copy(useGps = event.enabled)

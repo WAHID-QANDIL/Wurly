@@ -13,6 +13,7 @@ interface LocalWeatherDatasource {
     fun observeForecastByCityId(cityId: Long): Flow<ForecastDayWeather?>
     fun observeLatestForecast(): Flow<ForecastDayWeather?>
     fun observeFavoriteForecasts(): Flow<List<ForecastDayWeather>>
+    fun getAllCities(): Flow<List<City>>
 
     fun getFavoriteCities(): Flow<List<City>>
     suspend fun addCityToFavorites(city: City)

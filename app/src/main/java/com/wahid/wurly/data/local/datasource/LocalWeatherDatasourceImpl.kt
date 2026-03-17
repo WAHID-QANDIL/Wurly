@@ -37,6 +37,10 @@ class LocalWeatherDatasourceImpl @Inject constructor(
         return weatherDao.observeFavoriteForecasts()
     }
 
+    override fun getAllCities(): Flow<List<City>> {
+        return weatherDao.getAllCities()
+    }
+
     override fun getFavoriteCities(): Flow<List<City>> {
         return weatherDao.getFavoriteCities()
     }
