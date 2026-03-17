@@ -22,10 +22,11 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): WeatherDatabase {
         return Room.databaseBuilder(
-            context,
-            name = "weather_db",
-            klass = WeatherDatabase::class.java
-        ).build()
+                context,
+                name = "weather_db",
+                klass = WeatherDatabase::class.java
+            ).fallbackToDestructiveMigration(true)
+            .build()
     }
 
 }
