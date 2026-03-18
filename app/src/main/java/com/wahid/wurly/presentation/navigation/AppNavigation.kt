@@ -1,8 +1,13 @@
 package com.wahid.wurly.presentation.navigation
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -10,6 +15,9 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -18,6 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -40,6 +51,8 @@ fun AppNavigation(
 ) {
     val navHostController = rememberNavController()
     val backStackEntry by navHostController.currentBackStackEntryAsState()
+    val connectivityViewModel: AppConnectivityViewModel = hiltViewModel()
+    val isOnline by connectivityViewModel.isOnline.collectAsStateWithLifecycle()
 
     val bottomNavDestinations = remember {
         listOf(
@@ -102,6 +115,8 @@ fun AppNavigation(
     }
 
     val cornerRadius = dimensionResource(R.dimen.weather_detail_card_corner_radius)
+    val navHeight = dimensionResource(R.dimen.weather_nav_height)
+    val bannerNavGap = dimensionResource(R.dimen.connectivity_banner_nav_gap)
 
     GlassContainer(
         modifier = modifier.fillMaxSize(),
@@ -112,6 +127,32 @@ fun AppNavigation(
             )
         },
     ) {
+        AnimatedVisibility(
+            visible = !isOnline,
+            enter = fadeIn() + slideInVertically(initialOffsetY = { it }),
+            exit = fadeOut() + slideOutVertically(targetOffsetY = { it }),
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = dimensionResource(R.dimen.weather_screen_horizontal_padding))
+                .padding(bottom = navHeight + bannerNavGap),
+        ) {
+            Surface(
+                shape = RoundedCornerShape(dimensionResource(R.dimen.weather_detail_card_corner_radius)),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.92f),
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                tonalElevation = dimensionResource(R.dimen.favorites_card_spacing),
+            ) {
+                Text(
+                    text = stringResource(R.string.connectivity_offline_message),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(
+                        horizontal = dimensionResource(R.dimen.favorites_card_padding),
+                        vertical = dimensionResource(R.dimen.favorites_card_spacing),
+                    ),
+                )
+            }
+        }
+
         WeatherBottomNav(
             modifier = Modifier
                 .align(Alignment.BottomCenter)

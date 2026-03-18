@@ -18,6 +18,7 @@
     <dimen name="weather_nav_height">84dp</dimen>
     <dimen name="weather_nav_icon_size">28dp</dimen>
     <dimen name="weather_nav_indicator_size">8dp</dimen>
+    <dimen name="connectivity_banner_nav_gap">12dp</dimen>
 
     <!-- 7-Day Forecast Screen -->
     <dimen name="forecast_row_corner_radius">20dp</dimen>

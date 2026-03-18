@@ -104,6 +104,10 @@
     <string name="favorites_temp_condition_format">%1$s · %2$s</string>
     <string name="favorites_preview_image_cd">Weather preview for %1$s</string>
     <string name="favorites_empty">No favorite locations yet.\nTap + to add one.</string>
+    <string name="favorites_delete_dialog_title">Remove favorite?</string>
+    <string name="favorites_delete_dialog_message">Are you sure you want to remove %1$s from favorites?</string>
+    <string name="favorites_delete_dialog_confirm">Remove</string>
+    <string name="favorites_delete_dialog_cancel">Cancel</string>
 
     <!-- Add Favorite Screen -->
     <string name="add_favorite_title">Add Favorite</string>
@@ -182,4 +186,7 @@
     <!-- Common Errors -->
     <string name="error_generic">Error</string>
     <string name="error_location_unavailable">Failed to get location</string>
+
+    <!-- Connectivity -->
+    <string name="connectivity_offline_message">You are offline. Some data may not update until you reconnect.</string>
 </resources>

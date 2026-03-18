@@ -10,10 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -62,6 +66,10 @@ fun FavoritesScreen(
     }
 }
 
+private data class PendingFavoriteDelete(
+    val id: String,
+    val cityName: String,
+)
 
 @Composable
 private fun FavoritesContent(
@@ -75,7 +83,8 @@ private fun FavoritesContent(
     val cardSpacing = dimensionResource(R.dimen.favorites_card_spacing)
     val listTopSpacing = dimensionResource(R.dimen.favorites_list_top_spacing)
     val navHeight = dimensionResource(R.dimen.weather_nav_height)
-    val fabMargin = dimensionResource(R.dimen.favorites_fab_margin)
+
+    val pendingDeleteFavorite = remember { mutableStateOf<PendingFavoriteDelete?>(null) }
 
     GlassContainer(
         modifier = modifier.fillMaxSize(),
@@ -132,7 +141,10 @@ private fun FavoritesContent(
                             time = item.time,
                             onClick = { onFavoriteClick(item.id.toLong()) },
                             onRemoveClick = {
-                                onRemoveFavorite(item.id)
+                                pendingDeleteFavorite.value = PendingFavoriteDelete(
+                                    id = item.id,
+                                    cityName = item.cityName,
+                                )
                             },
                         )
                     }
@@ -144,4 +156,43 @@ private fun FavoritesContent(
             }
          }
      }
- }
+
+    val favoriteToDelete = pendingDeleteFavorite.value
+    if (favoriteToDelete != null) {
+        AlertDialog(
+            onDismissRequest = {
+                pendingDeleteFavorite.value = null
+            },
+            title = {
+                Text(text = stringResource(R.string.favorites_delete_dialog_title))
+            },
+            text = {
+                Text(
+                    text = stringResource(
+                        R.string.favorites_delete_dialog_message,
+                        favoriteToDelete.cityName,
+                    ),
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onRemoveFavorite(favoriteToDelete.id)
+                        pendingDeleteFavorite.value = null
+                    },
+                ) {
+                    Text(text = stringResource(R.string.favorites_delete_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        pendingDeleteFavorite.value = null
+                    },
+                ) {
+                    Text(text = stringResource(R.string.favorites_delete_dialog_cancel))
+                }
+            },
+        )
+    }
+}

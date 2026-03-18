@@ -105,6 +105,10 @@
     <string name="favorites_temp_condition_format">%1$s · %2$s</string>
     <string name="favorites_preview_image_cd">معاينة الطقس لـ %1$s</string>
     <string name="favorites_empty">لا توجد مواقع مفضلة بعد.\nاضغط + للإضافة.</string>
+    <string name="favorites_delete_dialog_title">إزالة من المفضلة؟</string>
+    <string name="favorites_delete_dialog_message">هل أنت متأكد أنك تريد إزالة %1$s من المفضلة؟</string>
+    <string name="favorites_delete_dialog_confirm">إزالة</string>
+    <string name="favorites_delete_dialog_cancel">إلغاء</string>
 
     <!-- Add Favorite Screen -->
     <string name="add_favorite_title">إضافة مفضلة</string>
@@ -186,4 +190,7 @@
     <!-- Common Errors -->
     <string name="error_generic">حدث خطأ</string>
     <string name="error_location_unavailable">تعذر الحصول على الموقع</string>
+
+    <!-- Connectivity -->
+    <string name="connectivity_offline_message">أنت غير متصل بالإنترنت. قد لا يتم تحديث بعض البيانات حتى تعود للاتصال.</string>
 </resources>
